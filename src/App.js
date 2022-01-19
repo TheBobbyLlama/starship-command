@@ -1,25 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import { useResizeDetector } from 'react-resize-detector';
+import { StoreProvider } from "./utils/GlobalState";
+
+import MainMenu from "./pages/MainMenu/MainMenu";
+
+import "./App.css";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	const { width, height, ref } = useResizeDetector();
+	var scaleFactor = width / 640 || 1;
+
+	if (scaleFactor * 480 > height) {
+		scaleFactor = height / 480 || 1;
+	}
+
+	return (
+		<div id="screenContainer" ref={ref}>
+			<div id="viewport" style={{transform: "scale(" + scaleFactor +")"}}>
+				<StoreProvider>
+					<MainMenu />
+				</StoreProvider>
+			</div>
+		</div>
+	);
 }
 
 export default App;
