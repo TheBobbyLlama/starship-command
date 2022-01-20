@@ -13,13 +13,13 @@
 	justify-content: space-around;
 }
 
-.authError {
+#auth .authError {
 	color: var(--error-color);
 	margin: 8px;
 	padding: 4px 8px;
 }
 
-.status {
+#auth .status {
 	color: white;
 	margin: 8px;
 	padding: 4px 8px;

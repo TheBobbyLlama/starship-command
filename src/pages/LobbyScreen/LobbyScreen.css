@@ -1,0 +1,46 @@
+#lobbyScreen {
+	align-items: center;
+	background-image: url('../../assets/images/Stars.png');
+	display: flex;
+	justify-content: center;
+}
+
+#lobbyScreen h1 {
+	text-align: center;
+}
+
+#lobbyScreen > .techPanel {
+	height: 300px;
+	margin-top: 40px;
+	width: 500px;
+}
+
+#lobbyScreen > .techPanel > .techScreen {
+	height: 100%;
+	width: 100%;
+}
+
+#lobbyScreen > .techPanel > .techScreen > h1 {
+	margin-bottom: 8px;
+}
+
+#lobbyScreen #lobbyHolder {
+	display: flex;
+	justify-content: space-between;
+	height: calc(100% - 24px);
+}
+
+#lobbyScreen #lobbyHolder > div:last-child {
+	display: flex;
+	flex-direction: column;
+}
+
+#lobbyScreen #lobbyHolder > div:last-child > div:first-child {
+	flex-basis: 99%;
+}
+
+#lobbyScreen #lobbyHolder > div:last-child > div:last-child {
+	display: flex;
+	justify-content: space-evenly;
+	margin-top: 8px;
+}

@@ -15,8 +15,16 @@
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
+	width: 196px;
 }
 
 #mainMenu #userInfo > div {
 	margin: 4px 8px;
+}
+
+#mainMenu .error {
+	color: var(--error-color);
+	margin: 8px;
+	padding: 4px 8px;
+	width: 190px;
 }

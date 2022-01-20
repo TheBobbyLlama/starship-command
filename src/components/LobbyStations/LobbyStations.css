@@ -1,0 +1,5 @@
+#lobbyStations {
+	border: solid 1px var(--screen-border);
+	padding: 4px 8px;
+	width: 292px;
+}

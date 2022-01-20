@@ -4,6 +4,8 @@ import { useStoreContext } from "../../utils/GlobalState";
 import { GAME_STATE_MAIN_MENU, GAME_STATE_LOBBY, GAME_STATE_LOBBY_SEARCH, GAME_STATE_MISSION, SET_GAME_STATE } from "../../utils/actions";
 
 import TitleScreen from "../TitleScreen/TitleScreen";
+import LobbyScreen from "../LobbyScreen/LobbyScreen";
+import ModalManager from "../../components/ModalManager/ModalManager";
 
 function GameStateManager() {
 	const [user, authLoading, ] = useAuthState(auth);
@@ -16,6 +18,8 @@ function GameStateManager() {
 	return (
 		<>
 			{(state.gameState === GAME_STATE_MAIN_MENU) ? <TitleScreen /> : <></>}
+			{(state.gameState === GAME_STATE_LOBBY) ? <LobbyScreen /> : <></>}
+			{(!!state.modal) ? <ModalManager /> : <></>}
 		</>
 	);
 }

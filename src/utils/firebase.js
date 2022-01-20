@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getDatabase, ref, get, set, update } from "firebase/database";
+import { getDatabase, ref, get, set, update, remove, onDisconnect, serverTimestamp } from "firebase/database";
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, sendPasswordResetEmail, signOut, updateProfile } from "firebase/auth";
 
 const tmpKey  = "A5TCtThImOd343zoEnbBcaQXrs9YSnXfEijyUML";
@@ -12,6 +12,10 @@ const assembleKey = function(input) {
 	}
 
 	return buildKey;
+}
+
+export const compactKey = (key) => {
+	return key.replace(/\W/g, "").toLowerCase();
 }
 
 // Your web app's Firebase configuration
@@ -28,10 +32,11 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getDatabase(app);
+const disconnectHandlers = {};
+export const auth = getAuth(app);
+export const db = getDatabase(app);
 
-const logInWithEmailAndPassword = async (email, password) => {
+export const logInWithEmailAndPassword = async (email, password) => {
 	try {
 		await signInWithEmailAndPassword(auth, email, password);
 		return { status: true };
@@ -40,10 +45,9 @@ const logInWithEmailAndPassword = async (email, password) => {
 	}
 };
 
-const registerWithEmailAndPassword = async (username, email, password) => {
+export const registerWithEmailAndPassword = async (username, email, password) => {
 	try {
-		const userPath = "users/" + compactKey(username);
-		const pathRef = ref(db, "users/" + compactKey(username))
+		const pathRef = ref(db, "users/" + compactKey(username));
 		const existing = await get(pathRef);
 
 		if (existing.val()) {
@@ -65,7 +69,7 @@ const registerWithEmailAndPassword = async (username, email, password) => {
 	}
 };
 
-const sendPasswordReset = async (email) => {
+export const sendPasswordReset = async (email) => {
 	try {
 		await sendPasswordResetEmail(auth, email);
 		return { status: true };
@@ -74,12 +78,48 @@ const sendPasswordReset = async (email) => {
 	}
 };
 
-const logout = () => {
+export const logout = () => {
 	signOut(auth);
 };
 
-const compactKey = (key) => {
-	return key.replace(/\W/g, "").toLowerCase();
+export const createGameLobby = async (username) => {
+	try {
+		var lobbyPath = "lobby/" + compactKey(username);
+		var newLobby = { captain: username, lastPulse: serverTimestamp() };
+
+		var testMe = await get(ref(db, lobbyPath));
+		testMe = testMe.val();
+
+		// If we disconnected and came back within a minute, keep our last lobby alive.
+		if ((testMe) && (Date.now() - testMe.lastPulse < 60000)) {
+			newLobby = testMe;
+			newLobby.lastPulse = Date.now();
+			await set(ref(db, lobbyPath + "/lastPulse"), newLobby.lastPulse);
+		} else {
+			await set(ref(db, lobbyPath), newLobby);
+			await set(ref(db, "lobby_events/" + compactKey(username)), null);
+		}
+
+		disconnectHandlers.lobby = onDisconnect(ref(db, lobbyPath + "/lastPulse"));
+		disconnectHandlers.lobby.set(serverTimestamp());
+
+		return { status: true, lobby: newLobby };
+	} catch (err) {
+		return { status: false };
+	}
 }
 
-export { db, auth, logInWithEmailAndPassword, registerWithEmailAndPassword, sendPasswordReset, logout, compactKey };
+export const closeGameLobby = async (username) => {
+	try {
+		var lobbyPath = "lobby/" + compactKey(username);
+
+		disconnectHandlers.lobby?.cancel();
+		delete disconnectHandlers.lobby;
+
+		await remove(ref(db, lobbyPath));
+
+		return { status: true };
+	} catch (err) {
+		return { status: false };
+	}
+}
