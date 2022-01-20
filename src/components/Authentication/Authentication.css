@@ -1,0 +1,26 @@
+#auth > div {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+}
+
+#auth > * + * {
+	margin-top: 8px;
+}
+
+#auth > div > div {
+	display: flex;
+	justify-content: space-around;
+}
+
+.authError {
+	color: var(--error-color);
+	margin: 8px;
+	padding: 4px 8px;
+}
+
+.status {
+	color: white;
+	margin: 8px;
+	padding: 4px 8px;
+}

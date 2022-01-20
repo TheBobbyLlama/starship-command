@@ -1,0 +1,22 @@
+#mainMenu > div {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+}
+
+#mainMenu > * + * {
+	margin-top: 8px;
+}
+
+#mainMenu #userInfo {
+	align-items: flex-start;
+	border: solid 2px var(--screen-border-disabled);
+	color: var(--screen-text-disabled);
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+
+#mainMenu #userInfo > div {
+	margin: 4px 8px;
+}

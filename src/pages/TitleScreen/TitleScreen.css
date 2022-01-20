@@ -1,0 +1,38 @@
+#titleScreen {
+	align-items: center;
+	background-image: url('../../assets/images/Stars.png');
+	display: flex;
+	justify-content: center;
+}
+
+#titleScreen > .techPanel {
+	height: 300px;
+	margin-top: 40px;
+	width: 500px;
+}
+
+#titleScreen > .techPanel > .techScreen {
+	height: 100%;
+	width: 100%;
+}
+
+#titleScreen #menuHolder {
+	align-items: flex-start;
+	display: flex;
+	justify-content: space-around;
+}
+
+#titleScreen #menuHolder > div {
+	border: solid 1px var(--screen-border);
+	padding: 4px 8px;
+}
+
+#titleScreen #menuHolder > div:last-child {
+	align-items: center;
+	display: flex;
+	flex-direction: column;
+	height: 290px;
+	justify-content: center;
+	margin-left: 10px;
+	min-width: 200px;
+}
