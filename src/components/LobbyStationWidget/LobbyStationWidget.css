@@ -1,0 +1,48 @@
+#lobbyStations .station {
+	background-color: black;
+	border: solid 4px var(--screen-border);
+	overflow: hidden;
+	padding: 2px 8px 4px 8px;
+	white-space: nowrap;
+	width: 112px;
+}
+
+#lobbyStations .station div {
+	color: white;
+}
+
+#lobbyStations .station.empty div {
+	color: var(--screen-text-disabled);
+}
+
+#lobbyStations .station.empty:hover {
+	background-color: var(--screen-highlight-dark);
+}
+
+#lobbyStations .station.empty:hover div {
+	color: var(--screen-text);
+}
+
+#lobbyStations .station:not(.noClick) {
+	cursor: pointer;
+}
+
+#lobbyStations .station:not(.noClick):not(.empty):hover div {
+	color: var(--screen-text-disabled);
+}
+
+#lobbyStations .station.captain label {
+	color: var(--division-command);
+}
+
+#lobbyStations .station.engineering label, #lobbyStations .station.helm label {
+	color: var(--division-operations);
+}
+
+#lobbyStations .station.sensors label {
+	color: var(--division-science);
+}
+
+#lobbyStations .station.weapons label {
+	color: var(--division-defense);
+}

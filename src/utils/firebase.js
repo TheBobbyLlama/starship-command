@@ -47,7 +47,7 @@ export const logInWithEmailAndPassword = async (email, password) => {
 
 export const registerWithEmailAndPassword = async (username, email, password) => {
 	try {
-		const pathRef = ref(db, "users/" + compactKey(username));
+		const pathRef = ref(db, "/users/" + compactKey(username));
 		const existing = await get(pathRef);
 
 		if (existing.val()) {
@@ -84,8 +84,8 @@ export const logout = () => {
 
 export const createGameLobby = async (username) => {
 	try {
-		var lobbyPath = "lobby/" + compactKey(username);
-		var newLobby = { captain: username, lastPulse: serverTimestamp() };
+		var lobbyPath = "/lobby/" + compactKey(username);
+		var newLobby = { captain: username, host: username, lastPulse: serverTimestamp(), players: [ username ] };
 
 		var testMe = await get(ref(db, lobbyPath));
 		testMe = testMe.val();
@@ -96,8 +96,11 @@ export const createGameLobby = async (username) => {
 			newLobby.lastPulse = Date.now();
 			await set(ref(db, lobbyPath + "/lastPulse"), newLobby.lastPulse);
 		} else {
-			await set(ref(db, lobbyPath), newLobby);
-			await set(ref(db, "lobby_events/" + compactKey(username)), null);
+			const updates = {};
+			updates[lobbyPath] = newLobby;
+			updates["/lobby_events/" + compactKey(username)] = null;
+
+			await update(ref(db), updates);
 		}
 
 		disconnectHandlers.lobby = onDisconnect(ref(db, lobbyPath + "/lastPulse"));
@@ -111,7 +114,7 @@ export const createGameLobby = async (username) => {
 
 export const closeGameLobby = async (username) => {
 	try {
-		var lobbyPath = "lobby/" + compactKey(username);
+		var lobbyPath = "/lobby/" + compactKey(username);
 
 		disconnectHandlers.lobby?.cancel();
 		delete disconnectHandlers.lobby;
@@ -121,5 +124,13 @@ export const closeGameLobby = async (username) => {
 		return { status: true };
 	} catch (err) {
 		return { status: false };
+	}
+}
+
+export const keepLobbyAlive = async (username) => {
+	try {
+		await set(ref(db, "/lobby/" + compactKey(username) + "/lastPulse"), serverTimestamp());
+	} catch {
+		console.log("Error sending lobby tick!");
 	}
 }

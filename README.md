@@ -1,4 +1,4 @@
-# Bob's Bridge Simulator
+# Union Starship Command
 
 This is a proof of concept for a multiplayer game in the vein of [Artemis Starship Bridge Simulator](https://www.artemisspaceshipbridge.com/).
 

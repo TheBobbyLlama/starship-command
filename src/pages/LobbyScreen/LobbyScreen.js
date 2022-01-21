@@ -1,5 +1,4 @@
-import { useAuthState } from "react-firebase-hooks/auth";
-import { auth, closeGameLobby } from "../../utils/firebase";
+import { closeGameLobby } from "../../utils/firebase";
 import { useStoreContext } from "../../utils/GlobalState";
 
 import LobbyStations from "../../components/LobbyStations/LobbyStations";
@@ -10,15 +9,14 @@ import { SET_GAME_STATE, SHOW_MODAL, MODAL_GENERIC, GAME_STATE_MAIN_MENU } from 
 import "./LobbyScreen.css";
 
 function LobbyScreen() {
-	const [user, , ] = useAuthState(auth);
 	const [state, dispatch] = useStoreContext();
 
-	const isHost = (user.displayName === state.lobby.captain);
+	const isHost = (state.user === state.lobby.host);
 	const readyToStart = false;
 
 	const closeLobby = () => {
 		if (isHost) {
-			closeGameLobby(user.displayName);
+			closeGameLobby(state.user);
 			dispatch({ type: SET_GAME_STATE, gameState: GAME_STATE_MAIN_MENU });
 		}
 	}
@@ -44,9 +42,9 @@ function LobbyScreen() {
 		<div id="lobbyScreen">
 			<div className="techPanel">
 				<div className="techScreen">
-					<h1>{state.lobby.captain}'s Lobby</h1>
+					<h1>{state.lobby.host}'s Lobby</h1>
 					<div id="lobbyHolder">
-						<LobbyStations host={isHost} />
+						<LobbyStations />
 						<div>
 							<LobbyPlayers />
 							<div>

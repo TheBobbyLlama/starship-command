@@ -2,6 +2,8 @@ import { useReducer } from "react";
 
 import {
 	SET_GAME_STATE,
+	SET_CURRENT_USER,
+	UPDATE_LOBBY,
 	SHOW_MODAL,
 	GAME_STATE_LOBBY
 } from "./actions";
@@ -23,6 +25,28 @@ export const reducer = (state, action) => {
 				default:
 					break;
 			}
+			return newState;
+		case SET_CURRENT_USER:
+			newState = { ...state };
+			newState.user = action.username;
+			return newState;
+		case UPDATE_LOBBY:
+			newState = { ...state };
+
+			if (action.path) {
+				newState.lobby = { ...newState.lobby };
+				let pathComponents = action.path.split("/");
+				let curPath = newState.lobby;
+
+				for (let i = 0; i < pathComponents.length; i++) {
+					curPath = curPath[pathComponents[i]];
+				}
+
+				curPath = action.data;
+			} else {
+				newState.lobby = action.data;
+			}
+
 			return newState;
 		case SHOW_MODAL:
 			newState = { ...state };

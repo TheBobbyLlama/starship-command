@@ -1,6 +1,6 @@
 :root {
-  --division-defense: #8a9a5b;
   --division-command: #cba135;
+  --division-defense: #8a9a5b;
   --division-operations: #9f8170;
   --division-science: #6082b6;
   --error-color: #ff3020;
@@ -11,6 +11,7 @@
   --screen-background: #000008;
   --screen-border: #081040;
   --screen-border-disabled: #040820;
+  --screen-highlight-dark: #020418;
   --screen-text: #2040c0;
   --screen-text-disabled: #606060;
 }
@@ -27,7 +28,7 @@
 
 @font-face {
   font-family: pixel-large;
-  src: url('./assets/fonts/alagard.ttf');
+  src: url('./assets/fonts/Dico.ttf');
 }
 
 body {
@@ -121,6 +122,35 @@ body {
 .modal > div:last-child {
   display: flex;
   justify-content: space-evenly;
+}
+
+.playerWidget {
+	border: solid 2px var(--screen-border-disabled);
+	display: flex;
+	flex-direction: row !important;
+	height: 36px;
+	justify-content: space-between;
+	max-width: 156px;
+	overflow: hidden;
+	width: 156px;
+}
+
+.playerWidget > div:first-child {
+	background-color: black;
+	border-right: solid 1px var(--screen-border-disabled);
+	height: 36px;
+	margin-right: 4px;
+	min-width: 36px;
+	width: 36px;
+}
+
+.playerWidget > div:last-child {
+	align-items: flex-end;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	padding: 2px 6px 2px 0;
+	white-space: nowrap;
 }
 
 .techPanel {

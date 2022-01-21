@@ -14,7 +14,7 @@ function TitleScreen() {
 			<div className="techPanel">
 				<div id="menuHolder" className="techScreen">
 					<div>
-						<h1>Welcome to Bob's Bridge Simulator!</h1>
+						<h1>Welcome to Union Starship Command!</h1>
 						<p>
 							This is a cooperative multiplayer game where players take control of different consoles on a starship and work together to finish their mission!
 						</p>

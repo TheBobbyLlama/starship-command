@@ -3,3 +3,16 @@
 	padding: 4px 8px;
 	width: 292px;
 }
+
+#lobbyStations > div {
+	display: flex;
+	flex-direction: column;
+	height: 250px;
+}
+
+#lobbyStations > div > div {
+	align-items: center;
+	display: flex;
+	justify-content: space-around;
+	flex-basis: 33%;
+}

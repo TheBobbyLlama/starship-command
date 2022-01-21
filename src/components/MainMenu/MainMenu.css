@@ -8,20 +8,6 @@
 	margin-top: 8px;
 }
 
-#mainMenu #userInfo {
-	align-items: flex-start;
-	border: solid 2px var(--screen-border-disabled);
-	color: var(--screen-text-disabled);
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-	width: 196px;
-}
-
-#mainMenu #userInfo > div {
-	margin: 4px 8px;
-}
-
 #mainMenu .error {
 	color: var(--error-color);
 	margin: 8px;
