@@ -1,0 +1,110 @@
+#lobbyBrowser {
+	align-items: center;
+	background-image: url('../../assets/images/Stars.png');
+	display: flex;
+	justify-content: center;
+}
+
+#lobbyBrowser h1 {
+	text-align: center;
+}
+
+#lobbyBrowser > .techPanel {
+	height: 300px;
+	margin-top: 40px;
+	width: 500px;
+}
+
+#lobbyBrowser > .techPanel > .techScreen {
+	height: 100%;
+	overflow: hidden;
+	width: 100%;
+}
+
+#lobbyBrowser > .techPanel > .techScreen > h1 {
+	margin-bottom: 8px;
+}
+
+#lobbyBrowser #browserHolder {
+	display: flex;
+	height: calc(100% - 32px);
+}
+
+#lobbyBrowser #browserHolder > div {
+	border: solid 2px var(--screen-border);
+	padding: 4px 8px;
+}
+
+#lobbyBrowser #browserHolder > div:first-child {
+	align-items: flex-start;
+	display: flex;
+	flex-direction: column;
+	width: 284px;
+}
+
+#lobbyBrowser #browserHolder > div:first-child > div {
+	border: solid 2px var(--screen-border);
+	padding: 4px 8px;
+	width: 264px;
+}
+
+#lobbyBrowser #browserHolder > div:first-child > div:first-child {
+	align-items: center;
+	display: flex;
+	justify-content: space-evenly;
+}
+
+#lobbyBrowser #browserHolder > div:last-child {
+	align-items: center;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	margin-left: 10px;
+	width: 160px;
+}
+
+#lobbyBrowser #lobbyList {
+	flex-basis: 100%;
+	overflow-y: auto;
+	position: relative;
+	top: -2px;
+}
+
+#lobbyBrowser #lobbyList > label {
+	color: var(--screen-text-disabled);
+}
+
+#lobbyList .lobbySummary {
+	border: solid 1px var(--screen-border-disabled);
+	padding: 2px 8px;
+	position: relative;
+	top: -1px;
+}
+
+#lobbyList .lobbySummary.selected {
+	background-color: var(--screen-border-disabled);
+	border-color: var(--screen-border);
+}
+
+#lobbyList .lobbySummary:not(.selected):hover {
+	background-color: var(--screen-highlight-dark);
+	border-color: var(--screen-border);
+	cursor: pointer;
+}
+
+#lobbyList .lobbySummary:not(.selected):hover label {
+	cursor: pointer;
+}
+
+#lobbyList .lobbySummary label {
+	color: white;
+}
+
+#lobbyList .lobbySummary > div:last-child {
+	display: flex;
+	justify-content: space-between;
+}
+
+#lobbyList .lobbySummary > div:last-child > div:last-child {
+	color: var(--screen-text-disabled);
+}

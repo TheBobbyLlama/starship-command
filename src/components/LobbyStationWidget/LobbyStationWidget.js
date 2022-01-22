@@ -1,17 +1,28 @@
 import { useStoreContext } from "../../utils/GlobalState";
-import { compactKey } from "../../utils/firebase";
+import { compactKey, assignToStation } from "../../utils/firebase";
 
 import "./LobbyStationWidget.css";
 
-function LobbyStationWidget({ user, label }) {
+function LobbyStationWidget({ label }) {
 	const [state, ] = useStoreContext();
 	const key = compactKey(label);
-	const filled = state.lobby[key];
+	const empty = !state.lobby[key];
+	const clickable = ((!state.lobby[key]) || (state.lobby[key] === state.user));
+
+	const doAssignment = async () => {
+		if (!!clickable) {
+			var result = await assignToStation(state.lobby, state.user, key);
+
+			if (!result.status) {
+				console.log("Failed to assign station!");
+			}
+		}
+	}
 
 	return (
-		<div className={"station " + key + ((filled) ? ((filled !== user) ? "" : " noClick") : " empty")}>
+		<div className={"station " + key + ((empty) ? " empty" : ((clickable) ? "" : " noClick"))} onClick={doAssignment}>
 			<label>{label}</label>
-			<div>{filled || "Empty"}</div>
+			<div>{state.lobby[key] || "Empty"}</div>
 		</div>
 	);
 }

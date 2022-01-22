@@ -230,6 +230,7 @@ body {
   color: white;
   font-family: pixel-standard;
   font-size: 8px;
+  padding: 4px 8px;
 }
 
 .techScreen button[disabled], .modal button[disabled] {
@@ -240,6 +241,7 @@ body {
 .techScreen button:not([disabled]):hover, .modal button:not([disabled]):hover {
   background-color: var(--screen-border);
   border-color: var(--screen-text);
+  cursor: pointer;
   text-shadow: 0 0 2px white;
 }
 
@@ -254,6 +256,7 @@ body {
   color: white;
   font-family: pixel-standard;
   font-size: 8px;
+  padding: 4px 8px;
 }
 
 .techScreen input[type='password']:hover, .techScreen input[type='text']:hover {

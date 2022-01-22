@@ -23,12 +23,12 @@
 	color: var(--screen-text);
 }
 
-#lobbyStations .station:not(.noClick) {
+#lobbyStations .station:not(.noClick), #lobbyStations .station:not(.noClick) label {
 	cursor: pointer;
 }
 
 #lobbyStations .station:not(.noClick):not(.empty):hover div {
-	color: var(--screen-text-disabled);
+	color: silver;
 }
 
 #lobbyStations .station.captain label {

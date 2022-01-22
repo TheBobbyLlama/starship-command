@@ -5,7 +5,9 @@ import {
 	SET_CURRENT_USER,
 	UPDATE_LOBBY,
 	SHOW_MODAL,
-	GAME_STATE_LOBBY
+	GAME_STATE_LOBBY,
+	GAME_STATE_LOBBY_SEARCH,
+	GAME_STATE_MAIN_MENU
 } from "./actions";
 
 export const reducer = (state, action) => {
@@ -45,6 +47,13 @@ export const reducer = (state, action) => {
 				curPath = action.data;
 			} else {
 				newState.lobby = action.data;
+			}
+
+			if ((!action.path) && (!action.data)) {
+				newState.gameState = GAME_STATE_MAIN_MENU;
+				delete newState.modal;
+			} else if (newState.gameState === GAME_STATE_LOBBY_SEARCH) {
+				newState.gameState = GAME_STATE_LOBBY;
 			}
 
 			return newState;

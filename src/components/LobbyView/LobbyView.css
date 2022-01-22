@@ -1,0 +1,50 @@
+#lobbyView {
+	height: 300px;
+	margin-top: 40px;
+	width: 500px;
+}
+
+#lobbyView > .techScreen {
+	height: 100%;
+	overflow: hidden;
+	width: 100%;
+}
+
+#lobbyView > .techScreen > div:first-child {
+	align-items: center;
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 4px;
+}
+
+#lobbyView > .techScreen > div:first-child > button {
+	white-space: nowrap;
+	width: 78px;
+}
+
+#lobbyView > .techScreen > div:first-child > h1 {
+	overflow: hidden;
+	margin-right: 8px;
+	white-space: nowrap;
+}
+
+#lobbyView #lobbyHolder {
+	display: flex;
+	justify-content: space-between;
+	height: calc(100% - 32px);
+}
+
+#lobbyView #lobbyHolder > div:last-child {
+	display: flex;
+	flex-direction: column;
+}
+
+#lobbyView #lobbyHolder > div:last-child > div:first-child {
+	flex-basis: 99%;
+}
+
+#lobbyView #lobbyHolder > div:last-child > div:last-child {
+	display: flex;
+	justify-content: space-evenly;
+	margin-top: 8px;
+}

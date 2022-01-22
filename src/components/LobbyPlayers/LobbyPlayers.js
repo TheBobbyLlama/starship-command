@@ -13,12 +13,16 @@ function LobbyPlayers() {
 			<h2>Players</h2>
 			<div>
 				{playerList.map(player => {
+					const isHost = state.lobby?.host === player;
+
 					return (
 						<div key={player} className="playerWidget">
 							<PlayerAvatar player={player} />
 							<div>
-								<div>{player}</div>
-								<div></div>
+								<div className={(isHost) ? "host" : ""}>{player}</div>
+								{(isHost) ?
+								(<div className="hostLabel">Host</div>) :
+								(<div></div>)}
 							</div>
 						</div>
 					);

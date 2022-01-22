@@ -1,5 +1,22 @@
 #lobbyPlayers {
 	border: solid 1px var(--screen-border);
-	padding: 4px 8px;
+	padding: 4px;
 	width: 160px;
+}
+
+#lobbyPlayers h2 {
+	margin-bottom: 6px !important;
+}
+
+#lobbyPlayers .playerWidget {
+	margin-top: -2px;
+}
+
+#lobbyPlayers .playerWidget .host {
+	color: var(--division-command);
+}
+
+#lobbyPlayers .playerWidget .hostLabel {
+	color: var(--screen-text-disabled);
+	height: 16px;
 }

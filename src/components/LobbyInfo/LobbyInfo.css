@@ -1,0 +1,32 @@
+#lobbyInfo {
+	overflow-y: auto;
+	width: 160px;
+}
+
+#lobbyInfo .playerWidget {
+	margin: 8px 0;
+}
+
+#lobbyInfo label {
+	color: white;
+}
+
+#lobbyInfo > div:last-child > div {
+	margin-left: 10px;
+}
+
+#lobbyInfo .captain {
+	color: var(--division-command);
+}
+
+#lobbyInfo .engineering, #lobbyStations .helm {
+	color: var(--division-operations);
+}
+
+#lobbyInfo .sensors {
+	color: var(--division-science);
+}
+
+#lobbyInfo .weapons {
+	color: var(--division-defense);
+}

@@ -1,6 +1,8 @@
 import { initializeApp } from "firebase/app";
-import { getDatabase, ref, get, set, update, remove, onDisconnect, serverTimestamp } from "firebase/database";
+import { getDatabase, ref, get, set, update, push, remove, runTransaction, off, onChildAdded, onDisconnect, onValue, serverTimestamp } from "firebase/database";
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, sendPasswordResetEmail, signOut, updateProfile } from "firebase/auth";
+
+import { LOBBY_PLAYER_JOIN, LOBBY_PLAYER_LEAVE } from "./events";
 
 const tmpKey  = "A5TCtThImOd343zoEnbBcaQXrs9YSnXfEijyUML";
 
@@ -32,9 +34,55 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
+const listeners = {};
 const disconnectHandlers = {};
 export const auth = getAuth(app);
 export const db = getDatabase(app);
+
+const lobbySlots = [ "captain", "engineering", "helm", "sensors", "weapons" ];
+
+export const createListener = async (path, host, callback) => {
+	try {
+		var keyPath = compactKey(path);
+		var fullPath = path + compactKey(host);
+
+		if (listeners[keyPath]) {
+			killListener();
+		}
+
+		listeners[keyPath] = ref(db, fullPath);
+
+		onValue(listeners[keyPath], (data) => callback(data?.val()));
+	} catch {
+		console.log("Error: Couldn't retrieve '" + path + "' listener!");
+	}
+}
+
+export const createEventListener = async (path, host, callback) => {
+	try {
+		var keyPath = compactKey(path);
+		var fullPath = path + compactKey(host);
+
+		if (listeners[keyPath]) {
+			killListener();
+		}
+
+		listeners[keyPath] = ref(db, fullPath);
+
+		onChildAdded(listeners[keyPath], (data) => callback(data?.val()));
+	} catch {
+		console.log("Error: Couldn't retrieve '" + path + "' event listener!");
+	}
+}
+
+export const killListener = async (path) => {
+	var keyPath = compactKey(path);
+
+	if (listeners[keyPath]) {
+		off(listeners[keyPath]);
+		delete listeners[keyPath];
+	}
+}
 
 export const logInWithEmailAndPassword = async (email, password) => {
 	try {
@@ -91,7 +139,7 @@ export const createGameLobby = async (username) => {
 		testMe = testMe.val();
 
 		// If we disconnected and came back within a minute, keep our last lobby alive.
-		if ((testMe) && (Date.now() - testMe.lastPulse < 60000)) {
+		if ((testMe?.host) && (Date.now() - testMe.lastPulse < 60000)) {
 			newLobby = testMe;
 			newLobby.lastPulse = Date.now();
 			await set(ref(db, lobbyPath + "/lastPulse"), newLobby.lastPulse);
@@ -127,10 +175,135 @@ export const closeGameLobby = async (username) => {
 	}
 }
 
-export const keepLobbyAlive = async (username) => {
+export const keepGameLobbyAlive = async (username) => {
 	try {
 		await set(ref(db, "/lobby/" + compactKey(username) + "/lastPulse"), serverTimestamp());
 	} catch {
 		console.log("Error sending lobby tick!");
+	}
+}
+
+export const queryGameLobby = async (host) => {
+	try {
+		const hostKey = compactKey(host);
+		const lobbyPath = "/lobby/" + hostKey;
+		const lobbyRef = ref(db, lobbyPath);
+
+		const lobby = (await get(lobbyRef)).val();
+
+		return { status: true, lobby };
+	} catch (err) {
+		return { status: false };
+	}
+}
+
+export const joinGameLobby = async (host, username) => {
+	try {
+		const hostKey = compactKey(host);
+		const lobbyPath = "/lobby/" + hostKey;
+		const eventPath = "/lobby_event/" + hostKey;
+
+		const lobbyRef = ref(db, lobbyPath);
+		const eventRef = ref(db, eventPath);
+
+		const lobby = (await get(lobbyRef)).val();
+
+		if (lobby.players >= 5) {
+			throw new RangeError("The lobby is full.");
+		}
+
+		await runTransaction(ref(db, lobbyPath + "/players"), (players) => {
+			if ((players) && (players.indexOf(username) < 0)) {
+				players.push(username);
+				players.sort();
+			}
+			return players;
+		});
+
+		await push(eventRef, { type: LOBBY_PLAYER_JOIN, data: username });
+
+		// TODO - How to handle disconnects???
+
+		return { status: true, lobby };
+	} catch (err) {
+		return { status: false, message: err.message };
+	}
+}
+
+export const leaveGameLobby = async (lobby, username) => {
+	try {
+		const hostKey = compactKey(lobby.host);
+		const lobbyPath = "/lobby/" + hostKey;
+
+		await runTransaction(ref(db, lobbyPath), (lobby) => {
+			if (lobby) {
+				lobby.players = lobby.players.filter(name => name !== username);
+
+				lobbySlots.forEach(slot => {
+					if (lobby[slot] === username) {
+						delete lobby[slot];
+					}
+				});
+			}
+			
+			return lobby;
+		});
+
+		await push(ref(db, "/lobby_event/" + hostKey), { type: LOBBY_PLAYER_LEAVE, data: username });
+
+		disconnectHandlers.lobby?.cancel();
+		delete disconnectHandlers.lobby;
+
+		return { status: true };
+	} catch (err) {
+		console.log(err);
+		return { status: false };
+	}
+}
+
+// TODO - Could these collide if players try for the same station simultaneously?
+export const assignToStation = async (lobby, username, station) => {
+	try {
+		const hostKey = compactKey(lobby.host);
+		const updates = {};
+
+		if (lobby[station] !== username) {
+			updates[station] = username;
+		}
+
+		lobbySlots.forEach(oldStation => {
+			if (lobby[oldStation] === username) {
+				updates[oldStation] = null;
+			}
+		});
+
+		await update(ref(db, "/lobby/" + hostKey), updates);
+
+		return { status: true };
+	} catch {
+		return { status: false };
+	}
+}
+
+export const searchGameLobbies = async (username, filters) => {
+	try {
+		const tmpList = (await get(ref(db, "/lobby"))).val();
+		const lobbyList = Object.entries(tmpList).map(item => item[1]).filter(item => {
+			return (((item.players.length < 5) || (item.players.indexOf(username) >= 0)) && (Date.now() - item.lastPulse < 60000));
+		});
+
+		lobbyList.sort((a, b) => {
+			if (a.players.indexOf(username) >= 0) {
+				return -1;
+			} else if (b.players.indexOf(username) >= 0) {
+				return 1;
+			} else {
+				return b.players.length - a.players.length;
+			}
+		});
+
+		return { status: true, lobbyList };
+	} catch (err) {
+		return { status: false };
 	}
 }
