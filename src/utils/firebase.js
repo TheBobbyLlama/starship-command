@@ -2,6 +2,8 @@ import { initializeApp } from "firebase/app";
 import { getDatabase, ref, get, set, update, push, remove, runTransaction, off, onChildAdded, onDisconnect, onValue, serverTimestamp } from "firebase/database";
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, sendPasswordResetEmail, signOut, updateProfile } from "firebase/auth";
 
+import { bridgeStations } from "./globals";
+
 import { LOBBY_PLAYER_JOIN, LOBBY_PLAYER_LEAVE } from "./events";
 
 const tmpKey  = "A5TCtThImOd343zoEnbBcaQXrs9YSnXfEijyUML";
@@ -38,8 +40,6 @@ const listeners = {};
 const disconnectHandlers = {};
 export const auth = getAuth(app);
 export const db = getDatabase(app);
-
-const lobbySlots = [ "captain", "engineering", "helm", "sensors", "weapons" ];
 
 export const createListener = async (path, host, callback) => {
 	try {
@@ -239,11 +239,15 @@ export const leaveGameLobby = async (lobby, username) => {
 			if (lobby) {
 				lobby.players = lobby.players.filter(name => name !== username);
 
-				lobbySlots.forEach(slot => {
+				bridgeStations.forEach(slot => {
 					if (lobby[slot] === username) {
 						delete lobby[slot];
 					}
 				});
+
+				if (lobby.ready) {
+					delete lobby.ready[compactKey(username)];
+				}
 			}
 			
 			return lobby;
@@ -271,17 +275,37 @@ export const assignToStation = async (lobby, username, station) => {
 			updates[station] = username;
 		}
 
-		lobbySlots.forEach(oldStation => {
+		bridgeStations.forEach(oldStation => {
 			if (lobby[oldStation] === username) {
 				updates[oldStation] = null;
 			}
 		});
+
+		updates["ready/" + compactKey(username)] = null;
 
 		await update(ref(db, "/lobby/" + hostKey), updates);
 
 		return { status: true };
 	} catch {
 		return { status: false };
+	}
+}
+
+export const setLobbyReadyStatus = async (host, username, status) => {
+	try
+	{
+		const pathRef = ref(db, "/lobby/" + compactKey(host) + "/ready/" + compactKey(username));
+
+		if (status) {
+			await set(pathRef, true);
+		} else {
+			await remove(pathRef);
+		}
+
+		return { status: true };
+	} catch (err) {
+		console.log(err);
+		return {status: false }
 	}
 }
 

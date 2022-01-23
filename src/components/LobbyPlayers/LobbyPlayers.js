@@ -1,4 +1,7 @@
 import { useStoreContext } from "../../utils/GlobalState";
+import { compactKey } from "../../utils/firebase";
+
+import { bridgeStations } from "../../utils/globals";
 
 import PlayerAvatar from "../PlayerAvatar/PlayerAvatar";
 
@@ -14,15 +17,16 @@ function LobbyPlayers() {
 			<div>
 				{playerList.map(player => {
 					const isHost = state.lobby?.host === player;
+					const assignedStation = bridgeStations.find(station => state.lobby[station] === player) || "";
 
 					return (
 						<div key={player} className="playerWidget">
 							<PlayerAvatar player={player} />
 							<div>
-								<div className={(isHost) ? "host" : ""}>{player}</div>
+								<div className={assignedStation}>{player}</div>
 								{(isHost) ?
 								(<div className="hostLabel">Host</div>) :
-								(<div></div>)}
+								(<div className="readyLabel">{((state.lobby.ready || {})[compactKey(player)]) ? "Ready!" : ""}</div>)}
 							</div>
 						</div>
 					);

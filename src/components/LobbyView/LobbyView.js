@@ -1,20 +1,24 @@
 import { useState } from "react";
-import { closeGameLobby, leaveGameLobby } from "../../utils/firebase";
+import { closeGameLobby, leaveGameLobby, setLobbyReadyStatus, compactKey } from "../../utils/firebase";
 import { useStoreContext } from "../../utils/GlobalState";
 
 import LobbyStations from "../../components/LobbyStations/LobbyStations";
 import LobbyPlayers from "../../components/LobbyPlayers/LobbyPlayers";
 
+import { bridgeStations } from "../../utils/globals";
 import { SET_GAME_STATE, UPDATE_LOBBY, SHOW_MODAL, MODAL_GENERIC, GAME_STATE_MAIN_MENU } from "../../utils/actions";
 
 import "./LobbyView.css";
 
 function LobbyView() {
 	const [state, dispatch] = useStoreContext();
-	const [ready, setReady] = useState(false);
 
 	const isHost = (state.user === state.lobby.host);
-	const readyToStart = false;
+	const assignedStation = bridgeStations.find(station => state.lobby[station] === state.user);
+
+	const playerReady = (state.lobby.ready || {})[compactKey(state.user)];
+	// TODO - Add minimum player requirement later!
+	const readyToStart = ((assignedStation) && (state.lobby.ready) && (Object.entries(state.lobby.ready).length >= state.lobby.players.length - 1));
 
 	const closeLobby = () => {
 		if (isHost) {
@@ -94,7 +98,7 @@ function LobbyView() {
 								</>
 								:
 								<>
-									<button type="button" disabled={!readyToStart}>Ready!</button>
+									<button type="button" disabled={!assignedStation} onClick={() => { setLobbyReadyStatus(state.lobby.host, state.user, !playerReady); }}>{(playerReady) ? "Wait!" : "Ready!"}</button>
 									<button type="button" onClick={promptLeaveLobby}>Leave</button>
 								</>
 							}

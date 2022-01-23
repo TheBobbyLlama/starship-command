@@ -89,7 +89,7 @@ body {
 
 .modal {
   background-color: var(--screen-text);
-  background: url('./assets/images/Scanlines.png');
+  background: url('./assets/images/ui/scanlines.png');
   border: solid 2px var(--screen-border);
   border-top-width: 0px;
   display: flex;
@@ -211,7 +211,7 @@ body {
 
 .techScreen::after {
   background-color: var(--screen-background);
-  background: url('./assets/images/Scanlines.png');
+  background: url('./assets/images/ui/scanlines.png');
   background-attachment: fixed;
   bottom: 2px;
   content: ' ';

@@ -7,26 +7,88 @@
 	margin: 8px 0;
 }
 
+#lobbyInfo .playerWidget > div:last-child > div:first-child {
+	margin-left: 10px;
+	position: relative;
+}
+
 #lobbyInfo label {
 	color: white;
 }
 
 #lobbyInfo > div:last-child > div {
+	color: var(--screen-text-disabled);
 	margin-left: 10px;
+	position: relative;
 }
 
 #lobbyInfo .captain {
-	color: var(--division-command);
+	color: var(--division-command) !important;
 }
 
-#lobbyInfo .engineering, #lobbyStations .helm {
-	color: var(--division-operations);
+#lobbyInfo .captain::before {
+	background-image: url("../../assets//images/ui/badge_captain.png");
+	content: ' ';
+	display: block;
+	height: 8px;
+	left: -10px;
+	position: absolute;
+	top: 2px;
+	width: 8px;
+}
+
+#lobbyInfo .engineering, #lobbyInfo .helm {
+	color: var(--division-operations) !important;
+}
+
+#lobbyInfo .engineering::before {
+	background-image: url("../../assets//images/ui/badge_engineering.png");
+	content: ' ';
+	display: block;
+	height: 8px;
+	left: -10px;
+	position: absolute;
+	top: 2px;
+	width: 8px;
+}
+
+#lobbyInfo .helm::before {
+	background-image: url("../../assets//images/ui/badge_helm.png");
+	content: ' ';
+	display: block;
+	height: 8px;
+	left: -10px;
+	position: absolute;
+	top: 2px;
+	width: 8px;
 }
 
 #lobbyInfo .sensors {
-	color: var(--division-science);
+	color: var(--division-science) !important;
+}
+
+#lobbyInfo .sensors:before {
+	background-image: url("../../assets//images/ui/badge_sensors.png");
+	content: ' ';
+	display: block;
+	height: 8px;
+	left: -10px;
+	position: absolute;
+	top: 2px;
+	width: 8px;
 }
 
 #lobbyInfo .weapons {
-	color: var(--division-defense);
+	color: var(--division-defense) !important;
+}
+
+#lobbyInfo .weapons::before {
+	background-image: url("../../assets//images/ui/badge_weapons.png");
+	content: ' ';
+	display: block;
+	height: 8px;
+	left: -10px;
+	position: absolute;
+	top: 2px;
+	width: 8px;
 }

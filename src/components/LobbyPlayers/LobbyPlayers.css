@@ -12,11 +12,88 @@
 	margin-top: -2px;
 }
 
-#lobbyPlayers .playerWidget .host {
+#lobbyPlayers div.playerWidget div:last-child div:first-child {
+	margin-left: 8px;
+	position: relative;
+}
+
+#lobbyPlayers div.playerWidget div.captain {
 	color: var(--division-command);
+}
+
+#lobbyPlayers div.playerWidget div.captain::before {
+	background-image: url("../../assets//images/ui/badge_captain.png");
+	content: ' ';
+	display: block;
+	height: 8px;
+	left: -10px;
+	position: absolute;
+	top: 2px;
+	width: 8px;
+}
+
+#lobbyPlayers div.playerWidget div.engineering, #lobbyPlayers div.playerWidget div.helm {
+	color: var(--division-operations);
+}
+
+#lobbyPlayers div.playerWidget div.engineering::before {
+	background-image: url("../../assets//images/ui/badge_engineering.png");
+	content: ' ';
+	display: block;
+	height: 8px;
+	left: -10px;
+	position: absolute;
+	top: 2px;
+	width: 8px;
+}
+
+#lobbyPlayers div.playerWidget div.helm::before {
+	background-image: url("../../assets//images/ui/badge_helm.png");
+	content: ' ';
+	display: block;
+	height: 8px;
+	left: -10px;
+	position: absolute;
+	top: 2px;
+	width: 8px;
+}
+
+#lobbyPlayers div.playerWidget div.sensors {
+	color: var(--division-science);
+}
+
+#lobbyPlayers div.playerWidget div.sensors::before {
+	background-image: url("../../assets//images/ui/badge_sensors.png");
+	content: ' ';
+	display: block;
+	height: 8px;
+	left: -10px;
+	position: absolute;
+	top: 2px;
+	width: 8px;
+}
+
+#lobbyPlayers div.playerWidget div.weapons {
+	color: var(--division-defense);
+}
+
+#lobbyPlayers div.playerWidget div.weapons::before {
+	background-image: url("../../assets//images/ui/badge_weapons.png");
+	content: ' ';
+	display: block;
+	height: 8px;
+	left: -10px;
+	position: absolute;
+	top: 2px;
+	width: 8px;
 }
 
 #lobbyPlayers .playerWidget .hostLabel {
 	color: var(--screen-text-disabled);
+	height: 16px;
+}
+
+#lobbyPlayers .playerWidget .readyLabel {
+	color: white;
 	height: 16px;
 }
