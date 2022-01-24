@@ -5,6 +5,7 @@ import { searchGameLobbies, queryGameLobby, joinGameLobby } from "../../utils/fi
 import { languageOptions, localizeKey } from "../../localization/localization";
 import { SET_GAME_STATE, UPDATE_LOBBY, SHOW_MODAL, GAME_STATE_MAIN_MENU, MODAL_GENERIC } from "../../utils/actions";
 
+import GameLogo from "../../components/GameLogo/GameLogo";
 import CheckboxWidget from "../../components/CheckboxWidget/CheckboxWidget";
 import LobbyInfo from "../../components/LobbyInfo/LobbyInfo";
 
@@ -110,6 +111,7 @@ function LobbyBrowser() {
 
 	return (
 		<div id="lobbyBrowser">
+			<GameLogo />
 			<div id="lobbyView" className="techPanel">
 				<div className="techScreen">
 					<h1>{localizeKey("SEARCH_TITLE", state)}</h1>

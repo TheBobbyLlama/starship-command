@@ -1,0 +1,19 @@
+#bridgeSet {
+	display: flex;
+	flex-direction: column;
+	height: 900px;
+	position: relative;
+	width: 800px;
+}
+
+#bridgeSet > div:first-child {
+	align-items: flex-start;
+	background-color: var(--panel-color);
+	display: flex;
+	flex-basis: 60%;
+}
+
+#bridgeSet > div:last-child {
+	background-color: var(--screen-border);
+	flex-basis: 60%;
+}

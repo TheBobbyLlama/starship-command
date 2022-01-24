@@ -3,6 +3,8 @@ import { auth } from "../../utils/firebase";
 import { useStoreContext } from "../../utils/GlobalState";
 
 import { localizeKey } from "../../localization/localization";
+
+import GameLogo from "../../components/GameLogo/GameLogo";
 import Authentication from "../../components/Authentication/Authentication";
 import MainMenu from "../../components/MainMenu/MainMenu";
 
@@ -14,6 +16,7 @@ function TitleScreen() {
 
 	return (
 		<div id="titleScreen">
+			<GameLogo />
 			<div className="techPanel">
 				<div id="menuHolder" className="techScreen">
 					<div>

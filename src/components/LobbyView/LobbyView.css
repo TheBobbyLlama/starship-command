@@ -48,3 +48,33 @@
 	justify-content: space-evenly;
 	margin-top: 8px;
 }
+
+#fadeOut {
+	background-color: black;
+	display: none;
+	z-index: 50;
+}
+
+#fadeOut.fade-enter {
+	bottom: 0px;
+	display: block;
+	left: 0px;
+	opacity: 1;
+	position: fixed;
+	right: 0px;
+	top: 0px;
+}
+
+#fadeOut.fade-enter-active {
+	animation: 0.5s steppedFadeIn;
+}
+
+#fadeOut.fade-enter-done {
+	bottom: 0px;
+	display: block;
+	left: 0px;
+	opacity: 1;
+	position: fixed;
+	right: 0px;
+	top: 0px;
+}

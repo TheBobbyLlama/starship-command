@@ -2,5 +2,6 @@
 	align-items: center;
 	background-image: url('../../assets/images/Stars.png');
 	display: flex;
+	flex-direction: column;
 	justify-content: center;
 }

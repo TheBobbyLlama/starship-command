@@ -1,15 +1,17 @@
 import { useStoreContext } from "../../utils/GlobalState";
 
+import TitleCard from "../../components/TitleCard/TitleCard";
+import StationCaptain from "../../components/StationCaptain/StationCaptain";
+
 import "./GameScreen.css";
 
 function GameScreen() {
 	const [state, ] = useStoreContext();
 
-	console.log(state);
-
 	return (
 		<div id="gameScreen">
-			<h1>To Space and Beyond!</h1>
+			<TitleCard title={state.lobby.mission} />
+			{(state.lobby.captain === state.user) ? <StationCaptain /> : <></>}
 		</div>
 	);
 };

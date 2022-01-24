@@ -1,0 +1,45 @@
+#viewScreen {
+	background-color: var(--panel-highlight);
+	color: var(--screen-text);
+	height: 360px;
+	overflow: hidden;
+	left: 120px;
+	padding: 10px;
+	position: relative;
+	top: 30px;
+	width: 480px;
+	z-index: 15;
+  }
+  
+  #viewScreen::before {
+	background-color: var(--panel-shadow);
+	bottom: 2px;
+	content: ' ';
+	display: block;
+	left: 0px;
+	position: absolute;
+	right: 2px;
+	top: 0px;
+	z-index: -2;
+  }
+  
+  #viewScreen::after {
+	background-color: black;
+	bottom: 2px;
+	content: ' ';
+	display: block;
+	left: 2px;
+	position: absolute;
+	right: 2px;
+	top: 2px;
+	z-index: -1;
+  }
+  
+  #viewScreen > div {
+	  background: url('../../assets/images/Stars.png');
+	  bottom: 2px;
+	  left: 2px;
+	  position: absolute;
+	  right: 2px;
+	  top: 2px;
+  }

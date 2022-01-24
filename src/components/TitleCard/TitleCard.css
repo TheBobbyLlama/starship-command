@@ -1,0 +1,44 @@
+#titleCard, #titleCard > div {
+	align-items: center;
+	bottom: 0px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	left: 0px;
+	position: absolute;
+	right: 0px;
+	top: 0px;
+	z-index: 50;
+}
+
+#titleCard > div:first-child {
+	background-color: black;
+}
+
+#titleCard > div:first-child.fade-exit {
+	opacity: 0;
+}
+
+#titleCard > div:first-child.fade-exit {
+	animation: 1s steppedFadeOut;
+}
+
+#titleCard > div:first-child.fade-exit-done {
+	display: none;
+}
+
+#titleCard > div:last-child {
+	animation: 1s steppedFadeIn;
+}
+
+#titleCard.fade-exit {
+	opacity: 0;
+}
+
+#titleCard.fade-exit-active {
+	animation: 1s steppedFadeOut;
+}
+
+#titleCard.fade-exit-done {
+	display: none;
+}

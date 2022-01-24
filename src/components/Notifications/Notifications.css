@@ -12,6 +12,6 @@
 }
 
 #notifications > div {
-	color: var(--screen-text-disabled);
+	color: var(--panel-highlight);
 	text-shadow: 1px 1px 0 black;
 }
