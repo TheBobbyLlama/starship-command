@@ -5,10 +5,12 @@ import {
 	SET_GAME_STATE,
 	SET_CURRENT_USER,
 	UPDATE_LOBBY,
+	ADD_NOTIFICATION,
 	SHOW_MODAL,
+	GAME_STATE_MAIN_MENU,
 	GAME_STATE_LOBBY,
 	GAME_STATE_LOBBY_SEARCH,
-	GAME_STATE_MAIN_MENU
+	GAME_STATE_MISSION
 } from "./actions";
 
 export const reducer = (state, action) => {
@@ -30,8 +32,12 @@ export const reducer = (state, action) => {
 			switch (action.gameState) {
 				case GAME_STATE_LOBBY:
 					newState.lobby = action.lobby;
+					newState.notifications = [];
+					break;
+				case GAME_STATE_MISSION:
 					break;
 				default:
+					newState.notifications = [];
 					break;
 			}
 			return newState;
@@ -62,6 +68,13 @@ export const reducer = (state, action) => {
 			} else if (newState.gameState === GAME_STATE_LOBBY_SEARCH) {
 				newState.gameState = GAME_STATE_LOBBY;
 			}
+
+			return newState;
+		case ADD_NOTIFICATION:
+			newState = { ...state };
+
+			newState.notifications = [...state.notifications];
+			newState.notifications.push({ message: action.message, expires: (Date.now() + 5000) });
 
 			return newState;
 		case SHOW_MODAL:

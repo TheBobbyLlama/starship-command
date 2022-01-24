@@ -83,8 +83,6 @@ function LobbyBrowser() {
 		doLobbySearch();
 	}
 
-	const tmpList = lobbyList || [];
-
 	return (
 		<div id="lobbyBrowser">
 			<div id="lobbyView" className="techPanel">
@@ -97,9 +95,9 @@ function LobbyBrowser() {
 								<button type="button" onClick={doLobbySearch}>{localizeKey("COMMON_BUTTON_REFRESH", state)}</button>
 							</div>
 							<div id="lobbyList">
-								{(tmpList?.length) ?
-								tmpList.map(showLobbySummary) :
-								<label>{localizeKey("SEARCH_NO_RESULTS", state)}</label>}
+								{(lobbyList) ? (lobbyList.length) ?
+								lobbyList.map(showLobbySummary) :
+								<label>{localizeKey("SEARCH_NO_RESULTS", state)}</label> : <></>}
 							</div>
 							<button type="button" onClick={backToMenu}>{localizeKey("COMMON_BUTTON_BACK", state)}</button>
 						</div>

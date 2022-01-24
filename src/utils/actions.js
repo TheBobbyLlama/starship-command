@@ -3,6 +3,7 @@ export const SET_GAME_STATE = "SET_GAME_STATE";
 export const SET_CURRENT_USER = "SET_CURRENT_USER";
 export const UPDATE_LOBBY = "UPDATE_LOBBY";
 
+export const ADD_NOTIFICATION = "ADD_NOTIFICATION";
 export const SHOW_MODAL = "SHOW_MODAL";
 
 export const GAME_STATE_MAIN_MENU = 0;

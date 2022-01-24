@@ -43,16 +43,23 @@ export const db = getDatabase(app);
 
 export const createListener = async (path, host, callback) => {
 	try {
+		var hostKey = compactKey(host);
 		var keyPath = compactKey(path);
-		var fullPath = path + compactKey(host);
+		var fullPath = path + hostKey;
 
 		if (listeners[keyPath]) {
-			killListener();
+			// No need to keep going if we already have the correct listener.
+			console.log(listeners[keyPath].path.pieces[1], hostKey);
+			if (listeners[keyPath].path.pieces[1] === hostKey) {
+				return;
+			} else {
+				await killListener(keyPath);
+			}
 		}
 
 		listeners[keyPath] = ref(db, fullPath);
 
-		onValue(listeners[keyPath], (data) => callback(data?.val()));
+		await onValue(listeners[keyPath], (data) => callback(data?.val()));
 	} catch {
 		console.log("Error: Couldn't retrieve '" + path + "' listener!");
 	}
@@ -60,16 +67,23 @@ export const createListener = async (path, host, callback) => {
 
 export const createEventListener = async (path, host, callback) => {
 	try {
+		var hostKey = compactKey(host);
 		var keyPath = compactKey(path);
 		var fullPath = path + compactKey(host);
 
 		if (listeners[keyPath]) {
-			killListener();
+			// No need to keep going if we already have the correct listener.
+			console.log(listeners[keyPath].path.pieces[1], hostKey);
+			if (listeners[keyPath].path.pieces[1] === hostKey) {
+				return;
+			} else {
+				await killListener(keyPath);
+			}
 		}
 
 		listeners[keyPath] = ref(db, fullPath);
 
-		onChildAdded(listeners[keyPath], (data) => callback(data?.val()));
+		await onChildAdded(listeners[keyPath], (data) => callback(data?.val()));
 	} catch {
 		console.log("Error: Couldn't retrieve '" + path + "' event listener!");
 	}
@@ -146,7 +160,7 @@ export const createGameLobby = async (username) => {
 		} else {
 			const updates = {};
 			updates[lobbyPath] = newLobby;
-			updates["/lobby_events/" + compactKey(username)] = null;
+			updates["/lobby_event/" + compactKey(username)] = null;
 
 			await update(ref(db), updates);
 		}
@@ -162,12 +176,18 @@ export const createGameLobby = async (username) => {
 
 export const closeGameLobby = async (username) => {
 	try {
-		var lobbyPath = "/lobby/" + compactKey(username);
+		var hostKey = compactKey(username);
+		var lobbyPath = "/lobby/" + hostKey;
+		var eventPath = "/lobby_event/" + hostKey;
 
 		disconnectHandlers.lobby?.cancel();
 		delete disconnectHandlers.lobby;
 
-		await remove(ref(db, lobbyPath));
+		const updates = {};
+		updates[lobbyPath] = null;
+		updates[eventPath] = null;
+
+		await update(ref(db), updates);
 
 		return { status: true };
 	} catch (err) {
@@ -220,7 +240,7 @@ export const joinGameLobby = async (host, username) => {
 			return players;
 		});
 
-		await push(eventRef, { type: LOBBY_PLAYER_JOIN, data: username });
+		await push(eventRef, { type: LOBBY_PLAYER_JOIN, data: username, timestamp: Date.now() });
 
 		// TODO - How to handle disconnects???
 
@@ -253,7 +273,7 @@ export const leaveGameLobby = async (lobby, username) => {
 			return lobby;
 		});
 
-		await push(ref(db, "/lobby_event/" + hostKey), { type: LOBBY_PLAYER_LEAVE, data: username });
+		await push(ref(db, "/lobby_event/" + hostKey), { type: LOBBY_PLAYER_LEAVE, data: username, timestamp: Date.now() });
 
 		disconnectHandlers.lobby?.cancel();
 		delete disconnectHandlers.lobby;

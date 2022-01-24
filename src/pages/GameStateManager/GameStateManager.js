@@ -9,6 +9,7 @@ import { GAME_STATE_MAIN_MENU, GAME_STATE_LOBBY, GAME_STATE_LOBBY_SEARCH, GAME_S
 import TitleScreen from "../TitleScreen/TitleScreen";
 import LobbyScreen from "../LobbyScreen/LobbyScreen";
 import LobbyBrowser from "../LobbyBrowser/LobbyBrowser";
+import GameScreen from "../GameScreen/GameScreen";
 
 import LobbyListener from "../../components/LobbyListener/LobbyListener";
 import ModalManager from "../../components/ModalManager/ModalManager";
@@ -49,6 +50,7 @@ function GameStateManager() {
 			{(state.gameState === GAME_STATE_MAIN_MENU) ? <TitleScreen /> : <></>}
 			{(state.gameState === GAME_STATE_LOBBY) ? <LobbyScreen /> : <></>}
 			{(state.gameState === GAME_STATE_LOBBY_SEARCH) ? <LobbyBrowser /> : <></>}
+			{(state.gameState === GAME_STATE_MISSION) ? <GameScreen /> : <></>}
 			{(!!state.modal) ? <ModalManager /> : <></>}
 			{(!!state.lobby) ? <LobbyListener /> : <></>}
 		</>

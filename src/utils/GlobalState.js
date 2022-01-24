@@ -9,7 +9,8 @@ const StoreProvider = ({ value = [], ...props }) => {
 	// Set default state here.
 	const [state, dispatch] = useGameReducer({
 		gameState: GAME_STATE_MAIN_MENU,
-		avatars: {}
+		avatars: {},
+		notifications: []
 	});
 	return <Provider value={[state, dispatch]} {...props} />;
 };

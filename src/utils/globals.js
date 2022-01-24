@@ -1,13 +1,12 @@
+const shipSpecifications = require("../assets/data/shipSpecifications.json");
+
 export const bridgeStations = [ "captain", "engineering", "helm", "sensors", "weapons" ];
 
-export const defaultGameState = {
-	ship: undefined
-}
+export const generateGameState = async (shipClass) => {
+	const gameState = {};
+	const shipData = shipSpecifications.find(ship => ship.class === shipClass) || shipSpecifications[0];
 
-export const createShip = (shipClass) => {
-	const ship = { class: shipClass };
+	gameState.ship = await JSON.parse(JSON.stringify(shipData)); // Deep copy!
 
-	ship.moveData = { x: 0, y: 0, heading: 0, speed: 0, turnRate: 0 };
-
-	return ship;
+	return gameState;
 }

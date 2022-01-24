@@ -17,8 +17,8 @@ function LobbyView() {
 	const assignedStation = bridgeStations.find(station => state.lobby[station] === state.user);
 
 	const playerReady = (state.lobby.ready || {})[compactKey(state.user)];
-	// TODO - Add minimum player requirement later!
-	const readyToStart = ((assignedStation) && (state.lobby.ready) && (Object.entries(state.lobby.ready).length >= state.lobby.players.length - 1));
+	// TODO - Test setting!
+	const readyToStart =  true;//((assignedStation) && (state.lobby.players.length >= 3) && (state.lobby.ready) && (Object.entries(state.lobby.ready).length >= state.lobby.players.length - 1));
 
 	const closeLobby = () => {
 		if (isHost) {
@@ -84,7 +84,7 @@ function LobbyView() {
 			<div className="techScreen">
 				<div>
 					<h1>{localizeKey("LOBBY_GENERIC_TITLE", state).replace("<HOST>", state.lobby.host)}</h1>
-					<button type="button">{localizeKey((isHost) ? "LOBBY_SET_MISSION" : "LOBBY_VIEW_MISSION", state)}</button>
+					<button type="button" disabled={true}>{localizeKey((isHost) ? "LOBBY_SET_MISSION" : "LOBBY_VIEW_MISSION", state)}</button>
 				</div>
 				<div id="lobbyHolder">
 					<LobbyStations />

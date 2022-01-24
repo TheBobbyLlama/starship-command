@@ -1,0 +1,17 @@
+#notifications {
+	align-items: flex-start;
+	bottom: initial !important;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+	max-height: 48px;
+	padding-left: 4px;
+	pointer-events: none;
+	position: absolute;
+	right: initial !important;
+}
+
+#notifications > div {
+	color: var(--screen-text-disabled);
+	text-shadow: 1px 1px 0 black;
+}
