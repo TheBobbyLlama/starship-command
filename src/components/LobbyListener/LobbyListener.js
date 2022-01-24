@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { keepGameLobbyAlive, leaveGameLobby, createListener, killListener, createEventListener } from "../../utils/firebase";
+import { keepGameLobbyAlive, leaveGameLobby, getMissionSummary, createListener, killListener, createEventListener } from "../../utils/firebase";
 import { useStoreContext } from "../../utils/GlobalState";
 
 import { UPDATE_LOBBY, ADD_NOTIFICATION } from "../../utils/actions";
@@ -39,8 +39,18 @@ function LobbyListener() {
 	}, [ state.user, state.lobby ]);
 
 	useEffect(() => {
-		const lobbyUpdate = (data) => {
-			dispatch({ type: UPDATE_LOBBY, data });
+		const lobbyUpdate = async (data) => {
+			var missionInfo;
+
+			if ((data?.mission) && (data.mission !== state.lobby.mission)) {
+				const result = await getMissionSummary(data.mission);
+
+				if (result.status) {
+					missionInfo = result.summary;
+				}
+			}
+
+			dispatch({ type: UPDATE_LOBBY, data, missionInfo });
 		}
 	
 		const processLobbyEvent = (event) => {
@@ -71,7 +81,7 @@ function LobbyListener() {
 			killListener("/lobby/");
 			killListener("/lobby_event/");
 		}
-	}, [ state.lobby?.host, dispatch, startTime, joinString, leaveString ]);
+	}, [ state.lobby?.host, state.lobby?.mission, dispatch, startTime, joinString, leaveString ]);
 
 	return (
 		<Notifications />

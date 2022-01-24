@@ -54,6 +54,10 @@
 	justify-content: space-evenly;
 }
 
+#lobbyBrowser #browserHolder > div:first-child .checkboxWidget + .checkboxWidget {
+	margin-top: 4px;
+}
+
 #lobbyBrowser #browserHolder > div:last-child {
 	align-items: center;
 	display: flex;

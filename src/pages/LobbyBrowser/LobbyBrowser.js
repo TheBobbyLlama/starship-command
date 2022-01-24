@@ -2,20 +2,44 @@ import { useState } from "react";
 import { useStoreContext } from "../../utils/GlobalState";
 import { searchGameLobbies, queryGameLobby, joinGameLobby } from "../../utils/firebase";
 
-import { localizeKey } from "../../localization/localization";
+import { languageOptions, localizeKey } from "../../localization/localization";
 import { SET_GAME_STATE, UPDATE_LOBBY, SHOW_MODAL, GAME_STATE_MAIN_MENU, MODAL_GENERIC } from "../../utils/actions";
 
+import CheckboxWidget from "../../components/CheckboxWidget/CheckboxWidget";
 import LobbyInfo from "../../components/LobbyInfo/LobbyInfo";
 
 import "./LobbyBrowser.css";
 
 function LobbyBrowser() {
 	const [state, dispatch] = useStoreContext();
+	const [filterLanguage, setFilterLanguage] = useState(true);
+	const [filterStarted, setFilterStarted] = useState(false);
 	const [lobbyList, setLobbyList] = useState();
 	const [selectedLobby, setSelectedLobby] = useState(null);
+	const [postLobbySearch, setPostLobbySearch] = useState(true);
+
+	const toggleLanguageFilter = async () => {
+		setFilterLanguage(!filterLanguage);
+		setPostLobbySearch(true);
+	}
+
+	const toggleStartedFilter = async () => {
+		setFilterStarted(!filterStarted);
+		setPostLobbySearch(true);
+	}
 
 	const doLobbySearch = async () => {
-		const result = await searchGameLobbies(state.user, {});
+		const filters = {};
+
+		if (filterLanguage) {
+			filters.language = state.language;
+		}
+
+		if (filterStarted) {
+			filters.allowStarted = true;
+		}
+
+		const result = await searchGameLobbies(state.user, filters);
 
 		if (result.status) {
 			setLobbyList(result.lobbyList);
@@ -58,7 +82,7 @@ function LobbyBrowser() {
 		const result = await joinGameLobby(selectedLobby.host, state.user);
 
 		if (result.status) {
-			dispatch({ type: UPDATE_LOBBY, data: result.lobby });
+			dispatch({ type: UPDATE_LOBBY, data: result.lobby, missionInfo: result.missionInfo });
 		} else {
 			dispatch({
 				type: SHOW_MODAL,
@@ -78,9 +102,10 @@ function LobbyBrowser() {
 		dispatch({ type: SET_GAME_STATE, gameState: GAME_STATE_MAIN_MENU });
 	}
 
-	if (lobbyList === undefined) {
+	if (postLobbySearch) {
 		setLobbyList(null);
 		doLobbySearch();
+		setPostLobbySearch(false);
 	}
 
 	return (
@@ -92,6 +117,10 @@ function LobbyBrowser() {
 						<div>
 							<div>
 								<div>{localizeKey("COMMON_LABEL_FILTERS", state)}</div>
+								<div>
+									<CheckboxWidget checked={filterLanguage} label={localizeKey("COMMON_FILTER_LANGUAGE", state).replace("<LANGUAGE>", languageOptions.find(langOpt => langOpt.key === state.language).label)} clickHandler={toggleLanguageFilter} />
+									<CheckboxWidget checked={filterStarted} label={localizeKey("SEARCH_FILTER_STARTED", state)} clickHandler={toggleStartedFilter} />
+								</div>
 								<button type="button" onClick={doLobbySearch}>{localizeKey("COMMON_BUTTON_REFRESH", state)}</button>
 							</div>
 							<div id="lobbyList">

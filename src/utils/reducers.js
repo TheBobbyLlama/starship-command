@@ -32,11 +32,16 @@ export const reducer = (state, action) => {
 			switch (action.gameState) {
 				case GAME_STATE_LOBBY:
 					newState.lobby = action.lobby;
+					newState.missionInfo = action.missionInfo;
+					delete newState.missionData;
 					newState.notifications = [];
 					break;
 				case GAME_STATE_MISSION:
+					// TODO - Set game and mission data!
 					break;
 				default:
+					delete newState.missionInfo;
+					delete newState.missionData;
 					newState.notifications = [];
 					break;
 			}
@@ -67,6 +72,10 @@ export const reducer = (state, action) => {
 				delete newState.modal;
 			} else if (newState.gameState === GAME_STATE_LOBBY_SEARCH) {
 				newState.gameState = GAME_STATE_LOBBY;
+			}
+
+			if (action.missionInfo) {
+				newState.missionInfo = action.missionInfo;
 			}
 
 			return newState;

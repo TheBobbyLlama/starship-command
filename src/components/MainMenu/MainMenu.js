@@ -14,7 +14,7 @@ function MainMenu() {
 	const [ errorMessage, setErrorMessage ] = useState("");
 
 	const launchLobby = async () => {
-		var result = await createGameLobby(state.user);
+		var result = await createGameLobby(state.user, state.language);
 
 		if (result.status) {
 			dispatch({ type: SET_GAME_STATE, gameState: GAME_STATE_LOBBY, lobby: result.lobby });

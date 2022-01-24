@@ -144,10 +144,10 @@ export const logout = () => {
 	signOut(auth);
 };
 
-export const createGameLobby = async (username) => {
+export const createGameLobby = async (username, language) => {
 	try {
 		var lobbyPath = "/lobby/" + compactKey(username);
-		var newLobby = { captain: username, host: username, lastPulse: serverTimestamp(), players: [ username ] };
+		var newLobby = { captain: username, host: username, language, lastPulse: serverTimestamp(), players: [ username ] };
 
 		var testMe = await get(ref(db, lobbyPath));
 		testMe = testMe.val();
@@ -242,9 +242,11 @@ export const joinGameLobby = async (host, username) => {
 
 		await push(eventRef, { type: LOBBY_PLAYER_JOIN, data: username, timestamp: Date.now() });
 
+		const missionInfo = ((lobby.mission) ? (await get(ref(db, "/mission_summary/" + compactKey(lobby.mission)))).val() : undefined);
+
 		// TODO - How to handle disconnects???
 
-		return { status: true, lobby };
+		return { status: true, lobby, missionInfo };
 	} catch (err) {
 		return { status: false, message: err.message };
 	}
@@ -333,7 +335,19 @@ export const searchGameLobbies = async (username, filters) => {
 	try {
 		const tmpList = (await get(ref(db, "/lobby"))).val();
 		const lobbyList = Object.entries(tmpList).map(item => item[1]).filter(item => {
-			return (((item.players.length < 5) || (item.players.indexOf(username) >= 0)) && (Date.now() - item.lastPulse < 60000));
+			if (Date.now() - item.lastPulse > 60000) {
+				return false;
+			} else if (item.players.indexOf(username) >= 0) {
+				return true; // Special case!  Any lobby that we disconnected from is okay!
+			} else if (item.players.length >= 5) {
+				return false;
+			} else if ((filters.language) && (item.language !== filters.language)) {
+				return false;
+			} else if ((!filters.allowStarted) && (item.missionStarted)) {
+				return false;
+			}
+
+			return true;
 		});
 
 		lobbyList.sort((a, b) => {
@@ -348,6 +362,50 @@ export const searchGameLobbies = async (username, filters) => {
 
 		return { status: true, lobbyList };
 	} catch (err) {
+		return { status: false };
+	}
+}
+
+export const getMissionSummary = async (name) => {
+	try {
+		const summary = (await (get(ref(db, "/mission_summary/" + compactKey(name))))).val();
+
+		return { status: true, summary };
+	} catch (err) {
+		return { status: false };
+	}
+}
+
+export const searchMissions = async (filters) => {
+	try {
+		const tmpList = (await get(ref(db, "/mission_summary"))).val();
+		const missionList = Object.entries(tmpList).map(item => item[1]).filter(item => {
+			if ((filters.language) && (item.language !== filters.language)) {
+				return false;
+			}
+
+			return true;
+		});
+
+		return { status: true, missionList };
+	} catch (err) {
+		return { status: false };
+	}
+}
+
+export const setLobbyMission = async (host, missionTitle) => {
+	try {
+		const hostKey = compactKey(host);
+		const updates = {};
+
+		updates["mission"] = missionTitle;
+		updates["ready"] = null;
+
+		await update(ref(db, "/lobby/" + hostKey), updates);
+
+		return { status: true };
+	} catch (err) {
+		console.log(err);
 		return { status: false };
 	}
 }

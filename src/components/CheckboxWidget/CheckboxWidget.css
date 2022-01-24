@@ -1,0 +1,31 @@
+.checkboxWidget {
+	align-items: center;
+	cursor: pointer;
+	display: flex;
+}
+
+.checkboxWidget > div:first-child {
+	align-items: center;
+	border: solid 1px var(--screen-border);
+	color: var(--screen-text);
+	display: flex;
+	justify-content: center;
+	height: 9px;
+	margin-right: 4px;
+	padding: 0 0 2px 1px;
+	width: 9px;
+}
+
+.checkboxWidget:hover > div:first-child {
+	background-color: var(--screen-border-disabled);
+	color: var(--screen-text-disabled);
+}
+
+.checkboxWidget label {
+	color: var(--screen-text-disabled);
+	cursor: pointer;
+}
+
+.checkboxWidget:hover label {
+	color: white;
+}

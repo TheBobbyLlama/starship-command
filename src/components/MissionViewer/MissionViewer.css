@@ -1,0 +1,36 @@
+#missionViewer.techPanel {
+	height: 300px;
+	padding: 10px;
+	width: 300px;
+}
+
+#missionViewer .techScreen {
+	display: flex;
+	flex-direction: column;
+	height: 280px;
+	left: 0;
+	top: 0;
+}
+
+#missionViewer .infoLine {
+	display: flex;
+}
+
+#missionViewer .infoLine > div:last-child {
+	color: var(--screen-text-disabled);
+	margin-left: 4px;
+}
+
+#missionViewer .infoDescription {
+	color: var(--screen-text-disabled);
+	border: solid 1px var(--screen-border-disabled);
+	flex-basis: 100%;
+	overflow-y: auto;
+	margin: 4px 0;
+	padding: 4px 8px;
+}
+
+#missionViewer div:last-child {
+	display: flex;
+	justify-content: space-around;
+}

@@ -1,0 +1,111 @@
+#missionSelector.techPanel {
+	height: 300px;
+	padding: 10px;
+	width: 400px;
+}
+
+#missionSelector .techScreen {
+	height: 280px;
+	left: 0;
+	top: 0;
+}
+
+#missionSelector .techScreen > div {
+	border: solid 2px var(--screen-border);
+	display: flex;
+	height: 260px;
+	justify-content: space-between;
+}
+
+#missionSelector .techScreen > div > div {
+	flex-basis: 50%;
+}
+
+#missionSelector .techScreen > div > div:first-child {
+	border-right: solid 2px var(--screen-border);
+}
+
+#missionSelector .techScreen > div > div:first-child > div:first-child {
+	align-items: center;
+	border-bottom: solid 2px var(--screen-border);
+	display: flex;
+	justify-content: space-around;
+	padding: 2px 0;
+}
+
+#missionSelector #missionList {
+	overflow-x: hidden;
+	overflow-y: auto;
+}
+
+#missionSelector #missionList > label {
+	color: var(--screen-text-disabled);
+	margin: 4px 8px;
+}
+
+#missionSelector .missionSummary {
+	border: solid 1px var(--screen-border);
+	margin: 0 -1px;
+	padding: 2px 8px;
+	position: relative;
+	top: -1px;
+}
+
+#missionSelector .missionSummary.selected {
+	background-color: var(--screen-border-disabled);
+}
+
+#missionSelector .missionSummary:not(.selected):hover {
+	background-color: var(--screen-highlight-dark);
+	cursor: pointer;
+}
+
+#missionSelector .missionSummary > label:first-child {
+	color: white;
+}
+
+#missionSelector .missionSummary > div:last-child {
+	display: flex;
+	justify-content: space-between;
+}
+
+#missionSelector .missionSummary > div:last-child > div:last-child {
+	color: var(--screen-text-disabled);
+}
+
+#missionInfo {
+	display: flex;
+	flex-direction: column;
+	padding: 8px;
+}
+
+#missionInfo label {
+	color: white;
+}
+
+#missionInfo .infoLine {
+	display: flex;
+}
+
+#missionInfo .infoLine > div:last-child {
+	color: var(--screen-text-disabled);
+	margin-left: 4px;
+}
+
+#missionInfo .infoDescription {
+	color: var(--screen-text-disabled);
+	border: solid 1px var(--screen-border-disabled);
+	flex-basis: 100%;
+	overflow-y: auto;
+	margin: 4px 0;
+	padding: 4px 8px;
+}
+
+#missionInfo > div:last-child {
+	display: flex;
+	justify-content: space-around;
+}
+
+#missionInfo .nullFiller {
+	flex-basis: 100%;
+}
