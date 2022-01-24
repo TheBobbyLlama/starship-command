@@ -1,4 +1,3 @@
-
 import { useResizeDetector } from "react-resize-detector";
 import { StoreProvider } from "./utils/GlobalState";
 

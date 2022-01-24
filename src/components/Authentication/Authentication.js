@@ -1,9 +1,14 @@
 import { useState } from "react";
-import { logInWithEmailAndPassword, registerWithEmailAndPassword, sendPasswordReset, logout, compactKey } from "../../utils/firebase";
+import { logInWithEmailAndPassword, registerWithEmailAndPassword, sendPasswordReset } from "../../utils/firebase";
+import { useStoreContext } from "../../utils/GlobalState";
+
+import { localizeKey } from "../../localization/localization";
 
 import "./Authentication.css";
 
 function Authentication() {
+	const [state, ] = useStoreContext();
+
 	const [ email, setEmail ] = useState("");
 	const [ password, setPassword ] = useState("");
 	const [ username, setUsername ] = useState("");
@@ -15,7 +20,7 @@ function Authentication() {
 	const [ errorMessage, setErrorMessage ] = useState("");
 
 	const enableButtons = () => {
-		const emailValid = !!email.match(/(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/);
+		const emailValid = !!email.match(/(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x21\x23-\x5b\x5d-\x7f]|\\[\x20-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x21-\x5a\x53-\x7f]|\\[\x20-\x7f])+)\])/);
 		const passwordValid = !!password.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/);
 		const usernameValid = !!username.match(/^[A-Za-z].{1,18}\S$/);;
 
@@ -30,7 +35,7 @@ function Authentication() {
 		const result = await logInWithEmailAndPassword(email, password);
 
 		if (!result.status) {
-			setErrorMessage(result.message || "Login failed.  Please check your username and password.");
+			setErrorMessage(localizeKey(result.message || "AUTH_LOGIN_FAILURE", state));
 		}
 	}
 
@@ -38,9 +43,9 @@ function Authentication() {
 		const result = await sendPasswordReset(email);
 
 		if (result.status) {
-			setStatusMessage("Password reset sent!  Please check your email for further instructions.");
+			setStatusMessage(localizeKey("AUTH_PASSWORD_RESET_SUCCESS", state));
 		} else {
-			setErrorMessage(result.message || "Invalid email.");
+			setErrorMessage(localizeKey(result.message || "AUTH_PASSWORD_RESET_FAILURE", state));
 		}
 	}
 
@@ -48,34 +53,34 @@ function Authentication() {
 		const result = await registerWithEmailAndPassword(username, email, password);
 
 		if (!result.status) {
-			setErrorMessage(result.message || "Account creation failed.");
+			setErrorMessage(localizeKey(result.message || "AUTH_REGISTRATION_FAILED", state));
 		}
 	}
 
 	return (
 		<div id="auth">
-			<h2>Sign In</h2>
+			<h2>{localizeKey("AUTH_SIGNIN", state)}</h2>
 			<div>
-				<label htmlFor="email">Email Address</label>
+				<label htmlFor="email">{localizeKey("AUTH_EMAIL", state)}</label>
 				<input type="text" name="email" value={email} onBlur={enableButtons} onChange={e => { setEmail(e.target.value); enableButtons(); }}></input>
 			</div>
 			<div>
-				<label htmlFor="password">Password</label>
+				<label htmlFor="password">{localizeKey("AUTH_PASSWORD", state)}</label>
 				<input type="password" name="password" value={password} onBlur={enableButtons} onChange={e => { setPassword(e.target.value); enableButtons(); }}></input>
 			</div>
 			<div>
 				<div>
-					<button type="button" disabled={!canLogin} onClick={tryLogin}>Login</button>
-					<button type="button" disabled={!canReset} onClick={tryReset}>Reset Password</button>
+					<button type="button" disabled={!canLogin} onClick={tryLogin}>{localizeKey("AUTH_LOGIN", state)}</button>
+					<button type="button" disabled={!canReset} onClick={tryReset}>{localizeKey("AUTH_RESET", state)}</button>
 				</div>
 			</div>
 			<div>
-				<label htmlFor="username">Username</label>
+				<label htmlFor="username">{localizeKey("AUTH_USERNAME", state)}</label>
 				<input type="text" name="username" maxLength={20} value={username} onBlur={enableButtons} onChange={e => { setUsername(e.target.value); enableButtons(); }}></input>
 			</div>
 			<div>
 				<div>
-					<button type="button" disabled={!canRegister} onClick={tryRegister}>Sign Up!</button>
+					<button type="button" disabled={!canRegister} onClick={tryRegister}>{localizeKey("AUTH_SIGNUP", state)}</button>
 				</div>
 			</div>
 			{(statusMessage) ? <div className="status">{statusMessage}</div> : <></>}

@@ -1,3 +1,4 @@
+export const SET_LOCALIZATION = "SET_LOCALIZATION";
 export const SET_GAME_STATE = "SET_GAME_STATE";
 export const SET_CURRENT_USER = "SET_CURRENT_USER";
 export const UPDATE_LOBBY = "UPDATE_LOBBY";

@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useStoreContext } from "../../utils/GlobalState";
 import { searchGameLobbies, queryGameLobby, joinGameLobby } from "../../utils/firebase";
+
+import { localizeKey } from "../../localization/localization";
 import { SET_GAME_STATE, UPDATE_LOBBY, SHOW_MODAL, GAME_STATE_MAIN_MENU, MODAL_GENERIC } from "../../utils/actions";
 
 import LobbyInfo from "../../components/LobbyInfo/LobbyInfo";
@@ -43,10 +45,10 @@ function LobbyBrowser() {
 		const selected = lobby === selectedLobby;
 		return (
 			<div key={lobby.host} className={"lobbySummary" + ((selected) ? " selected" : "")} onClick={() => { if (!selected) { selectLobby(lobby); }}}>
-				<label>{lobby.mission || lobby.host + "'s Lobby"}</label>
+				<label>{lobby.mission || localizeKey("LOBBY_GENERIC_TITLE", state).replace("<HOST>", lobby.host)}</label>
 				<div>
 					<div>{lobby.host}</div>
-					<div>{lobby.players.length}/5 Players</div>
+					<div>{lobby.players.length}/5 {localizeKey("COMMON_LABEL_PLAYERS", state)}</div>
 				</div>
 			</div>
 		);
@@ -62,10 +64,10 @@ function LobbyBrowser() {
 				type: SHOW_MODAL,
 				modal: {
 					type: MODAL_GENERIC,
-					title: "Failed Joining Lobby",
-					text: result.message || "The lobby could not be joined.",
+					title: localizeKey("COMMON_TITLE_ERROR"),
+					text: localizeKey(result.message || "SEARCH_JOIN_FAILURE", state),
 					buttons: {
-						Ok: () => { doLobbySearch(); dispatch({ type: SHOW_MODAL }); }
+						[localizeKey("COMMON_BUTTON_OK", state)]: () => { doLobbySearch(); dispatch({ type: SHOW_MODAL }); }
 					}
 				}
 			});
@@ -87,23 +89,23 @@ function LobbyBrowser() {
 		<div id="lobbyBrowser">
 			<div id="lobbyView" className="techPanel">
 				<div className="techScreen">
-					<h1>Search for Games</h1>
+					<h1>{localizeKey("SEARCH_TITLE", state)}</h1>
 					<div id="browserHolder">
 						<div>
 							<div>
-								<div>Filters</div>
-								<button type="button" onClick={doLobbySearch}>Refresh</button>
+								<div>{localizeKey("COMMON_LABEL_FILTERS", state)}</div>
+								<button type="button" onClick={doLobbySearch}>{localizeKey("COMMON_BUTTON_REFRESH", state)}</button>
 							</div>
 							<div id="lobbyList">
 								{(tmpList?.length) ?
 								tmpList.map(showLobbySummary) :
-								<label>No results :(</label>}
+								<label>{localizeKey("SEARCH_NO_RESULTS", state)}</label>}
 							</div>
-							<button type="button" onClick={backToMenu}>Back</button>
+							<button type="button" onClick={backToMenu}>{localizeKey("COMMON_BUTTON_BACK", state)}</button>
 						</div>
 						<div>
 							<LobbyInfo lobby={selectedLobby} />
-							<button type="button" disabled={!selectedLobby} onClick={joinSelectedLobby}>Join</button>
+							<button type="button" disabled={!selectedLobby} onClick={joinSelectedLobby}>{localizeKey("SEARCH_BUTTON_JOIN", state)}</button>
 						</div>
 					</div>
 				</div>

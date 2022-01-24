@@ -1,6 +1,7 @@
 import { useStoreContext } from "../../utils/GlobalState";
 import { compactKey } from "../../utils/firebase";
 
+import { localizeKey } from "../../localization/localization";
 import { bridgeStations } from "../../utils/globals";
 
 import PlayerAvatar from "../PlayerAvatar/PlayerAvatar";
@@ -13,7 +14,7 @@ function LobbyPlayers() {
 
 	return (
 		<div id="lobbyPlayers">
-			<h2>Players</h2>
+			<h2>{localizeKey("COMMON_LABEL_PLAYERS", state)}</h2>
 			<div>
 				{playerList.map(player => {
 					const isHost = state.lobby?.host === player;
@@ -25,8 +26,8 @@ function LobbyPlayers() {
 							<div>
 								<div className={assignedStation}>{player}</div>
 								{(isHost) ?
-								(<div className="hostLabel">Host</div>) :
-								(<div className="readyLabel">{((state.lobby.ready || {})[compactKey(player)]) ? "Ready!" : ""}</div>)}
+								(<div className="hostLabel">{localizeKey("COMMON_LABEL_HOST", state)}</div>) :
+								(<div className="readyLabel">{localizeKey(((state.lobby.ready || {})[compactKey(player)]) ? "LOBBY_READY" : "", state)}</div>)}
 							</div>
 						</div>
 					);

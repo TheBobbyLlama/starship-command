@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { useStoreContext } from "../../utils/GlobalState";
-
 import { logout, createGameLobby } from "../../utils/firebase";
+
+import { localizeKey } from "../../localization/localization";
 import { GAME_STATE_LOBBY, GAME_STATE_LOBBY_SEARCH, SET_GAME_STATE } from "../../utils/actions";
 
 import PlayerAvatar from "../PlayerAvatar/PlayerAvatar";
@@ -18,7 +19,7 @@ function MainMenu() {
 		if (result.status) {
 			dispatch({ type: SET_GAME_STATE, gameState: GAME_STATE_LOBBY, lobby: result.lobby });
 		} else {
-			setErrorMessage("Unable to create a new lobby!");
+			setErrorMessage(localizeKey("MAINMENU_NEW_LOBBY_FAILURE", state));
 		}
 	}
 
@@ -28,7 +29,7 @@ function MainMenu() {
 
 	return (
 		<div id="mainMenu">
-			<h2>Main Menu</h2>
+			<h2>{localizeKey("MAINMENU_MAIN_MENU", state)}</h2>
 			<div className="playerWidget">
 				<PlayerAvatar player={state.user} />
 				<div>
@@ -37,13 +38,13 @@ function MainMenu() {
 				</div>
 			</div>
 			<div>
-				<button type="button" onClick={launchLobby}>Host Game</button>
+				<button type="button" onClick={launchLobby}>{localizeKey("MAINMENU_HOST_GAME", state)}</button>
 			</div>
 			<div>
-				<button type="button" onClick={goToLobbySearch}>Join Game</button>
+				<button type="button" onClick={goToLobbySearch}>{localizeKey("MAINMENU_JOIN_GAME", state)}</button>
 			</div>
 			<div>
-				<button type="button" onClick={logout}>Logout</button>
+				<button type="button" onClick={logout}>{localizeKey("MAINMENU_LOGOUT", state)}</button>
 			</div>
 			{(errorMessage) ? <div className="error">{errorMessage}</div> : <></>}
 		</div>

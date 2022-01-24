@@ -1,26 +1,28 @@
 import { useStoreContext } from "../../utils/GlobalState";
 
+import { localizeKey } from "../../localization/localization";
+
 import LobbyStationWidget from "../LobbyStationWidget/LobbyStationWidget";
 
 import "./LobbyStations.css";
 
 function LobbyStations() {
-	const [state, dispatch] = useStoreContext();
+	const [state, ] = useStoreContext();
 
 	return (
 		<div id="lobbyStations">
-			<h2>Stations</h2>
+			<h2>{localizeKey("COMMON_LABEL_STATIONS", state)}</h2>
 			<div>
 				<div>
-					<LobbyStationWidget label="Helm" />
-					<LobbyStationWidget label="Weapons" />
+					<LobbyStationWidget stationKey="helm" />
+					<LobbyStationWidget stationKey="weapons" />
 				</div>
 				<div>
-					<LobbyStationWidget label="Captain" />
+					<LobbyStationWidget stationKey="captain" />
 				</div>
 				<div>
-					<LobbyStationWidget label="Sensors" />
-					<LobbyStationWidget label="Engineering" />
+					<LobbyStationWidget stationKey="sensors" />
+					<LobbyStationWidget stationKey="engineering" />
 				</div>
 			</div>
 		</div>

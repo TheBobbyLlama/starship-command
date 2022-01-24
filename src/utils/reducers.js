@@ -1,6 +1,7 @@
 import { useReducer } from "react";
 
 import {
+	SET_LOCALIZATION,
 	SET_GAME_STATE,
 	SET_CURRENT_USER,
 	UPDATE_LOBBY,
@@ -14,6 +15,12 @@ export const reducer = (state, action) => {
 	let newState;
 
 	switch (action.type) {
+		case SET_LOCALIZATION: {
+			newState = { ...state };
+			newState.language = action.language;
+			newState.localization = action.data;
+			return newState;
+		}
 		case SET_GAME_STATE:
 			newState = { ...state };
 			newState.oldGameState = newState.gameState;

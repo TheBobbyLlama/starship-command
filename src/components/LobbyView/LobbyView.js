@@ -1,12 +1,12 @@
-import { useState } from "react";
 import { closeGameLobby, leaveGameLobby, setLobbyReadyStatus, compactKey } from "../../utils/firebase";
 import { useStoreContext } from "../../utils/GlobalState";
 
-import LobbyStations from "../../components/LobbyStations/LobbyStations";
-import LobbyPlayers from "../../components/LobbyPlayers/LobbyPlayers";
-
+import { localizeKey } from "../../localization/localization";
 import { bridgeStations } from "../../utils/globals";
 import { SET_GAME_STATE, UPDATE_LOBBY, SHOW_MODAL, MODAL_GENERIC, GAME_STATE_MAIN_MENU } from "../../utils/actions";
+
+import LobbyStations from "../../components/LobbyStations/LobbyStations";
+import LobbyPlayers from "../../components/LobbyPlayers/LobbyPlayers";
 
 import "./LobbyView.css";
 
@@ -33,11 +33,11 @@ function LobbyView() {
 				type: SHOW_MODAL,
 				modal: {
 					type: MODAL_GENERIC,
-					title: "Close Lobby?",
-					text: "This will eject all players.",
+					title: localizeKey("COMMON_TITLE_CONFIRM", state),
+					text: localizeKey("LOBBY_CONFIRM_CLOSE", state),
 					buttons: {
-						Yes: closeLobby,
-						No: () => { dispatch({ type: SHOW_MODAL }); }
+						[localizeKey("COMMON_BUTTON_OK", state)]: closeLobby,
+						[localizeKey("COMMON_BUTTON_CANCEL", state)]: () => { dispatch({ type: SHOW_MODAL }); }
 					}
 				}
 			});
@@ -54,10 +54,10 @@ function LobbyView() {
 				type: SHOW_MODAL,
 				modal: {
 					type: MODAL_GENERIC,
-					title: "Error",
-					text: result.message || "An error occurred.",
+					title: localizeKey("COMMON_TITLE_ERROR", state),
+					text: localizeKey(result.message || "COMMON_ERROR_GENERIC", state),
 					buttons: {
-						Ok: () => { dispatch({ type: SHOW_MODAL }); }
+						[localizeKey("COMMON_BUTTON_OK", state)]: () => { dispatch({ type: SHOW_MODAL }); }
 					}
 				}
 			});
@@ -69,11 +69,11 @@ function LobbyView() {
 			type: SHOW_MODAL,
 			modal: {
 				type: MODAL_GENERIC,
-				title: "Confirm",
-				text: "Are you sure you want to leave?",
+				title: localizeKey("COMMON_TITLE_CONFIRM", state),
+				text: localizeKey("LOBBY_CONFIRM_LEAVE", state),
 				buttons: {
-					Yes: leaveLobby,
-					No: () => { dispatch({ type: SHOW_MODAL }); }
+					[localizeKey("COMMON_BUTTON_YES", state)]: leaveLobby,
+					[localizeKey("COMMON_BUTTON_NO", state)]: () => { dispatch({ type: SHOW_MODAL }); }
 				}
 			}
 		});
@@ -83,8 +83,8 @@ function LobbyView() {
 		<div id="lobbyView" className="techPanel">
 			<div className="techScreen">
 				<div>
-					<h1>{state.lobby.host}'s Lobby</h1>
-					<button type="button">{(isHost) ? "Set Mission" : "View Mission"}</button>
+					<h1>{localizeKey("LOBBY_GENERIC_TITLE", state).replace("<HOST>", state.lobby.host)}</h1>
+					<button type="button">{localizeKey((isHost) ? "LOBBY_SET_MISSION" : "LOBBY_VIEW_MISSION", state)}</button>
 				</div>
 				<div id="lobbyHolder">
 					<LobbyStations />
@@ -93,13 +93,13 @@ function LobbyView() {
 						<div>
 							{(isHost) ?
 								<>
-									<button type="button" disabled={!readyToStart}>Launch!</button>
-									<button type="button" onClick={promptCloseLobby}>Close</button>
+									<button type="button" disabled={!readyToStart}>{localizeKey("LOBBY_LAUNCH", state)}</button>
+									<button type="button" onClick={promptCloseLobby}>{localizeKey("LOBBY_CLOSE", state)}</button>
 								</>
 								:
 								<>
-									<button type="button" disabled={!assignedStation} onClick={() => { setLobbyReadyStatus(state.lobby.host, state.user, !playerReady); }}>{(playerReady) ? "Wait!" : "Ready!"}</button>
-									<button type="button" onClick={promptLeaveLobby}>Leave</button>
+									<button type="button" disabled={!assignedStation} onClick={() => { setLobbyReadyStatus(state.lobby.host, state.user, !playerReady); }}>{localizeKey((playerReady) ? "LOBBY_WAIT" : "LOBBY_READY", state)}</button>
+									<button type="button" onClick={promptLeaveLobby}>{localizeKey("LOBBY_LEAVE", state)}</button>
 								</>
 							}
 						</div>

@@ -99,7 +99,7 @@ export const registerWithEmailAndPassword = async (username, email, password) =>
 		const existing = await get(pathRef);
 
 		if (existing.val()) {
-			return { status: false, message: "Username already exists!" };
+			return { status: false, message: "AUTH_REGISTRATION_EXISTS" };
 		}
 
 		const res = await createUserWithEmailAndPassword(auth, email, password);
@@ -209,7 +209,7 @@ export const joinGameLobby = async (host, username) => {
 		const lobby = (await get(lobbyRef)).val();
 
 		if (lobby.players >= 5) {
-			throw new RangeError("The lobby is full.");
+			throw new RangeError("SEARCH_LOBBY_FULL");
 		}
 
 		await runTransaction(ref(db, lobbyPath + "/players"), (players) => {
