@@ -1,4 +1,4 @@
-import { useRef, usestate } from "react";
+import { useRef, useState } from "react";
 import { CSSTransition } from "react-transition-group";
 import { useStoreContext } from "../../utils/GlobalState";
 

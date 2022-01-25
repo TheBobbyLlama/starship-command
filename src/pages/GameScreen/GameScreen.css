@@ -1,0 +1,27 @@
+#viewLobby {
+	align-items: center;
+	background-color: var(--panel-color);
+	border-bottom: solid 1px var(--panel-shadow);
+	border-left: solid 1px var(--panel-highlight);
+	border-right: solid 1px var(--panel-shadow);
+	border-top: solid 1px var(--panel-highlight);
+	color: var(--panel-text);
+	cursor: pointer;
+	display: flex;
+	height: 16px;
+	justify-content: center;
+	overflow: hidden;
+	position: absolute;
+	right: 0px;
+	top: 0px;
+	width: 16px;
+	z-index: 20;
+}
+
+#viewLobby:hover {
+	background-color: var(--panel-highlight);
+	border-bottom-color: var(--panel-color);
+	border-left-color: white;
+	border-right-color: var(--panel-color);
+	border-top-color: white;
+}

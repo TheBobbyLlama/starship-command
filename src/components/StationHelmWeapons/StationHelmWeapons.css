@@ -1,0 +1,82 @@
+#stationHelmWeapons #bridgeSet {
+	left: -10px;
+	top: -360px;
+	right: auto;
+	transition: left 1s ease-out, right 1s ease-out, top 1s ease-out;
+}
+
+#stationHelmWeapons.weaponStation-enter-active #bridgeSet, #stationHelmWeapons.weaponStation-enter-done #bridgeSet {
+	left: auto !important;
+	right: 90px;
+	top: -360px;
+}
+
+#stationHelmWeapons #consoleHelm {
+	left: 40px;
+	top: 60px;
+	transition: left 1s ease-out, top 1s ease-out;
+}
+
+#stationHelmWeapons #consoleWeapons {
+	right: -1000px;
+	top: 60px;
+	transition: right 1s ease-out, top 1s ease-out;
+}
+
+#stationHelmWeapons.viewScreen-enter #bridgeSet, #stationHelmWeapons.viewScreen-enter-done #bridgeSet {
+	top: -10px;
+	left: -40px;
+}
+
+#stationHelmWeapons.viewScreen-enter-active #bridgeSet {
+	top: -10px;
+	left: -40px;
+}
+
+#stationHelmWeapons.viewScreen-enter #consoleHelm, #stationHelmWeapons.viewScreen-enter-done #consoleHelm {
+	left: -20px;
+	top: 456px;
+}
+
+#stationHelmWeapons.viewScreen-enter-active #consoleHelm {
+	left: -20px;
+	top: 456px;
+}
+
+#stationHelmWeapons.viewScreen-enter #consoleWeapons, #stationHelmWeapons.viewScreen-enter-done #consoleWeapons {
+	top: 60px;
+}
+
+#stationHelmWeapons.weaponStation-enter-active #consoleWeapons, #stationHelmWeapons.weaponStation-enter-done #consoleWeapons {
+	right: 40px;
+	top: 60px;
+}
+
+#stationHelmWeapons.weaponStation-enter-active #consoleHelm, #stationHelmWeapons.weaponStation-enter-done #consoleHelm {
+	left: -1000px;
+	top: 60px;
+}
+
+#stationHelmWeapons.weaponStation-enter-done.viewScreen-enter #bridgeSet, #stationHelmWeapons.weaponStation-enter-done.viewScreen-enter-done #bridgeSet {
+	top: -10px;
+	right: 50px;
+}
+
+#stationHelmWeapons.weaponStation-enter-done.viewScreen-enter-active #bridgeSet {
+	top: -10px;
+	right: 50px;
+}
+
+#stationHelmWeapons.weaponStation-enter-done.viewScreen-enter #consoleWeapons, #stationHelmWeapons.weaponStation-enter-done.viewScreen-enter-done #consoleWeapons {
+	right: -20px;
+	top: 456px;
+}
+
+#stationHelmWeapons.weaponStation-enter-done.viewScreen-enter-active #consoleWeapons {
+	right: -20px;
+	top: 456px;
+}
+
+#stationHelmWeapons.weaponStation-enter-active .stationTransitionLeft, #stationHelmWeapons.weaponStation-enter-active .stationTransitionUp, #stationHelmWeapons.weaponStation-exit-active .stationTransitionRight, #stationHelmWeapons.weaponStation-exit-active .stationTransitionUp {
+	display: none;
+}

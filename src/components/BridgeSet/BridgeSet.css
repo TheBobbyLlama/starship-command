@@ -14,6 +14,6 @@
 }
 
 #bridgeSet > div:last-child {
-	background-color: var(--screen-border);
+	background-color: #304080;
 	flex-basis: 60%;
 }

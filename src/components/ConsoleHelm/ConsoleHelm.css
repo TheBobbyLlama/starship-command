@@ -1,0 +1,18 @@
+#consoleHelm {
+	position: absolute;
+}
+
+#consoleHelm > .techScreen {
+	height: 360px;
+	left: 0;
+	top: 0;
+	width: 480px;
+}
+
+#consoleHelm > h2 {
+	color: var(--panel-shadow);
+	position: absolute;
+	right: 22px;
+	text-shadow: 1px 1px 0px var(--panel-highlight);
+	top: 6px;
+}

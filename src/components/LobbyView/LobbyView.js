@@ -95,6 +95,10 @@ function LobbyView() {
 		}, 1000);
 	}
 
+	const hideModal = () => {
+		dispatch({ type: SHOW_MODAL });
+	}
+
 	return (
 		<>
 			<CSSTransition
@@ -109,7 +113,7 @@ function LobbyView() {
 				<div className="techScreen">
 					<div>
 						<h1>{state.lobby.mission || localizeKey("LOBBY_GENERIC_TITLE", state).replace("<HOST>", state.lobby.host)}</h1>
-						{(state.lobby.started) ? <></> : <button type="button" disabled={((!isHost) && (!state.lobby.mission))} onClick={showMissionInfo}>{localizeKey((isHost) ? "LOBBY_SET_MISSION" : "LOBBY_MISSION_INFO", state)}</button>}
+						{(state.lobby.missionStarted) ? <></> : <button type="button" disabled={((!isHost) && (!state.lobby.mission))} onClick={showMissionInfo}>{localizeKey((isHost) ? "LOBBY_SET_MISSION" : "LOBBY_MISSION_INFO", state)}</button>}
 					</div>
 					<div id="lobbyHolder">
 						<LobbyStations />
@@ -118,12 +122,12 @@ function LobbyView() {
 							<div>
 								{(isHost) ?
 									<>
-										<button type="button" disabled={!readyToStart} onClick={startGame}>{localizeKey("LOBBY_LAUNCH", state)}</button>
+										{(state.lobby.missionStarted) ? <button type="button" onClick={hideModal}>{localizeKey("COMMON_BUTTON_RESUME", state)}</button> : <button type="button" disabled={!readyToStart} onClick={startGame}>{localizeKey("LOBBY_LAUNCH", state)}</button>}
 										<button type="button" onClick={promptCloseLobby}>{localizeKey("LOBBY_CLOSE", state)}</button>
 									</>
 									:
 									<>
-										<button type="button" disabled={!assignedStation} onClick={() => { setLobbyReadyStatus(state.lobby.host, state.user, !playerReady); }}>{localizeKey((playerReady) ? "LOBBY_WAIT" : "LOBBY_READY", state)}</button>
+										{(state.lobby.missionStarted) ? <button type="button" onClick={hideModal}>{localizeKey("COMMON_BUTTON_RESUME", state)}</button> : <button type="button" disabled={!assignedStation} onClick={() => { setLobbyReadyStatus(state.lobby.host, state.user, !playerReady); }}>{localizeKey((playerReady) ? "LOBBY_WAIT" : "LOBBY_READY", state)}</button>}
 										<button type="button" onClick={promptLeaveLobby}>{localizeKey("LOBBY_LEAVE", state)}</button>
 									</>
 								}
