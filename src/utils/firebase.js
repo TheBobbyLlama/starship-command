@@ -2,7 +2,7 @@ import { initializeApp } from "firebase/app";
 import { getDatabase, ref, get, set, update, push, remove, runTransaction, off, onChildAdded, onDisconnect, onValue, serverTimestamp } from "firebase/database";
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, sendPasswordResetEmail, signOut, updateProfile } from "firebase/auth";
 
-import { bridgeStations } from "./globals";
+import { bridgeStations, generateGameState } from "./globals";
 
 import { LOBBY_PLAYER_JOIN, LOBBY_PLAYER_LEAVE } from "./events";
 
@@ -407,5 +407,22 @@ export const setLobbyMission = async (host, missionTitle) => {
 	} catch (err) {
 		console.log(err);
 		return { status: false };
+	}
+}
+
+export const launchGame = async (lobby) => {
+	try {
+		const hostKey = compactKey(lobby.host);
+		const updates = {};
+
+		updates["/lobby/" + hostKey + "/missionStarted"] = true;
+		updates["/game/" + hostKey] = await generateGameState("SHIP_CLASS_LIGHT_CRUISER");
+
+		await update(ref(db), updates);
+
+		return { status: true };
+	} catch (err) {
+		console.log(err);
+		return { status: false, message: err.message };
 	}
 }

@@ -1,11 +1,11 @@
 import { useRef, useState } from "react";
 import { CSSTransition } from "react-transition-group";
-import { closeGameLobby, leaveGameLobby, setLobbyReadyStatus, compactKey } from "../../utils/firebase";
+import { closeGameLobby, leaveGameLobby, setLobbyReadyStatus, launchGame, compactKey } from "../../utils/firebase";
 import { useStoreContext } from "../../utils/GlobalState";
 
 import { localizeKey } from "../../localization/localization";
 import { bridgeStations } from "../../utils/globals";
-import { SET_GAME_STATE, UPDATE_LOBBY, SHOW_MODAL, MODAL_GENERIC, MODAL_MISSION_SELECTOR, MODAL_MISSION_VIEWER, GAME_STATE_MAIN_MENU, GAME_STATE_MISSION } from "../../utils/actions";
+import { SET_GAME_STATE, UPDATE_LOBBY, SHOW_MODAL, MODAL_GENERIC, MODAL_MISSION_SELECTOR, MODAL_MISSION_VIEWER, GAME_STATE_MAIN_MENU } from "../../utils/actions";
 
 import LobbyStations from "../../components/LobbyStations/LobbyStations";
 import LobbyPlayers from "../../components/LobbyPlayers/LobbyPlayers";
@@ -22,7 +22,7 @@ function LobbyView() {
 
 	const playerReady = (state.lobby.ready || {})[compactKey(state.user)];
 	// TODO - Test setting!
-	const readyToStart =  true;//((assignedStation) && (state.lobby.players.length >= 3) && (state.lobby.ready) && (Object.entries(state.lobby.ready).length >= state.lobby.players.length - 1));
+	const readyToStart =  !!state.lobby.mission;//((assignedStation) && (state.lobby.mission) && (state.lobby.players.length >= 3) && (state.lobby.ready) && (Object.entries(state.lobby.ready).length >= state.lobby.players.length - 1));
 
 	const closeLobby = () => {
 		if (isHost) {
@@ -90,8 +90,22 @@ function LobbyView() {
 	const startGame = () => {
 		setFadeOut(true);
 
-		setTimeout(() => {
-			dispatch({ type: SET_GAME_STATE, gameState: GAME_STATE_MISSION })
+		setTimeout(async () => {
+			const result = await launchGame(state.lobby);
+
+			if (!result.status) {
+				dispatch({
+					type: SHOW_MODAL,
+					modal: {
+						type: MODAL_GENERIC,
+						title: localizeKey("COMMON_TITLE_ERROR", state),
+						text: localizeKey(result.message || "COMMON_ERROR_GENERIC", state),
+						buttons: {
+							[localizeKey("COMMON_BUTTON_OK", state)]: () => { dispatch({ type: SHOW_MODAL }); setFadeOut(false); }
+						}
+					}
+				});
+			}
 		}, 1000);
 	}
 

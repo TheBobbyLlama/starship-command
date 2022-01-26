@@ -9,6 +9,7 @@ function BridgeSet() {
 				<ViewScreen />
 			</div>
 			<div></div>
+			<div></div>
 		</div>
 	);
 }

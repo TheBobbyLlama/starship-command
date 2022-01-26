@@ -5,6 +5,7 @@
 	flex-direction: column;
 	justify-content: space-around;
 	left: 0px;
+	pointer-events: none;
 	position: absolute;
 	right: 0px;
 	top: 0px;
@@ -13,6 +14,7 @@
 
 #titleCard > div:first-child {
 	background-color: black;
+	pointer-events: initial;
 }
 
 #titleCard > div:first-child.fade-exit {

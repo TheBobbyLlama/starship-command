@@ -70,6 +70,8 @@ export const reducer = (state, action) => {
 			if ((!action.path) && (!action.data)) {
 				newState.gameState = GAME_STATE_MAIN_MENU;
 				delete newState.modal;
+			} else if ((newState.lobby.missionStarted) && (newState.gameState !== GAME_STATE_MISSION)) {
+				newState.gameState = GAME_STATE_MISSION;
 			} else if (newState.gameState === GAME_STATE_LOBBY_SEARCH) {
 				newState.gameState = GAME_STATE_LOBBY;
 			}

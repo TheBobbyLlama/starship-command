@@ -3,6 +3,7 @@ import { logInWithEmailAndPassword, registerWithEmailAndPassword, sendPasswordRe
 import { useStoreContext } from "../../utils/GlobalState";
 
 import { localizeKey } from "../../localization/localization";
+import { detectProfanity } from "../../utils/utils";
 
 import "./Authentication.css";
 
@@ -20,15 +21,22 @@ function Authentication() {
 	const [ errorMessage, setErrorMessage ] = useState("");
 
 	const enableButtons = () => {
+		var newStatus = "";
+		var newError = "";
 		const emailValid = !!email.match(/(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x21\x23-\x5b\x5d-\x7f]|\\[\x20-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x21-\x5a\x53-\x7f]|\\[\x20-\x7f])+)\])/);
 		const passwordValid = !!password.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/);
-		const usernameValid = !!username.match(/^[A-Za-z].{1,18}\S$/);;
+		const usernameProfane = detectProfanity(username);
+		const usernameValid = ((!usernameProfane) && (username.match(/^[A-Za-z].{1,18}\S$/)));
+
+		if (usernameProfane) {
+			newError = localizeKey("COMMON_MESSAGE_PROFANITY", state);
+		}
 
 		setCanLogin(((emailValid) && (passwordValid)));
 		setCanReset(!!emailValid);
 		setCanRegister(((emailValid) && (passwordValid) && (usernameValid)));
-		setStatusMessage("");
-		setErrorMessage("");
+		setStatusMessage(newStatus);
+		setErrorMessage(newError);
 	}
 
 	const tryLogin = async () => {

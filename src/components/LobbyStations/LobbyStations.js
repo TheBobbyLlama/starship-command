@@ -21,8 +21,8 @@ function LobbyStations() {
 					<LobbyStationWidget stationKey="captain" />
 				</div>
 				<div>
-					<LobbyStationWidget stationKey="sensors" />
 					<LobbyStationWidget stationKey="engineering" />
+					<LobbyStationWidget stationKey="sensors" />
 				</div>
 			</div>
 		</div>

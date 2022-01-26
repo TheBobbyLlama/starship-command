@@ -10,10 +10,11 @@
 	align-items: flex-start;
 	background-color: var(--panel-color);
 	display: flex;
-	flex-basis: 60%;
+	flex-basis: 50%;
 }
 
 #bridgeSet > div:last-child {
 	background-color: #304080;
-	flex-basis: 60%;
+	flex-basis: 50%;
+	transition: height ease-out;
 }
