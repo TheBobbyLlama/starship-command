@@ -1,4 +1,5 @@
 :root {
+  --alert-background: #ff2020;
   --division-command: #cba135;
   --division-defense: #8a9a5b;
   --division-operations: #9f8170;
@@ -269,6 +270,97 @@ body {
   border-color: var(--screen-text);
 }
 
+input[type="range"] {
+  -webkit-appearance: none;
+  background-color: transparent;
+  pointer-events: none;
+  height: 20px;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  background-image: url("./assets/images/ui/slider_thumb.png");
+  cursor: pointer;
+  height: 24px;
+  pointer-events: all;
+  position: relative;
+  top: -12px;
+  width: 24px;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+  background-position-y: 24px;
+}
+
+input[type=range]::-webkit-slider-runnable-track  {
+  -webkit-appearance: none;
+  background-color: black;
+  border: solid 2px var(--screen-border-disabled);
+  height: 2px;
+  padding: 1px;
+}
+
+.techScreen input[type='range'].vertical {
+  transform: rotate(270deg);
+}
+
+.techScreen.console > div:first-child {
+	background-color: var(--screen-border);
+  display: flex;
+  justify-content: space-between;
+	padding: 4px 8px;
+}
+
+.techScreen.console > div:first-child .alert {
+  animation: alertFlash 1s infinite;
+  background-color: var(--alert-background);
+  color: white;
+  padding: 2px 8px;
+}
+
+.techScreen.console > div:last-child > div:first-child {
+	background-color: var(--screen-border);
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	padding: 8px;
+	width: 160px;
+}
+
+.techScreen.console #modeSelection {
+	display: flex;
+	flex-direction: column;
+}
+
+.techScreen.console #modeSelection button {
+	background-image: url('./assets/images/ui/scanlines.png');
+	box-shadow: none;
+	margin: 0 -2px 4px -2px;
+}
+
+.techScreen.console #modeSelection button.selected {
+	background-color: var(--screen-text);
+	background-image: none;
+	border: none;
+	padding: 6px 8px;
+	pointer-events: none;
+}
+
+.techScreen.console #modeSelection button:hover {
+	background-image: none;
+	box-shadow: none;
+}
+
+.techScreen.console > div:first-child > div:first-of-type {
+	display: flex;
+	flex-direction: column;
+}
+
+#consoleHelm > .techScreen > div:last-child {
+	display: flex;
+	flex-basis: 100%;
+}
+
 .stationTransitionDown {
   background-color: transparent;
   bottom: -40px;
@@ -363,6 +455,28 @@ body {
 
 .stationTransitionDown:hover, .stationTransitionLeft:hover, .stationTransitionRight:hover, .stationTransitionUp:hover {
   box-shadow: 0px 0px 50px yellow;
+}
+
+@keyframes alertFlash {
+  from {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  50.1% {
+    opacity: 0;
+  }
+
+  99.9% {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes steppedFadeIn {

@@ -1,8 +1,8 @@
 import { useRef, useState } from "react";
 import { CSSTransition } from "react-transition-group";
-import { useStoreContext } from "../../utils/GlobalState";
+import { useStoreContext } from "../../../utils/GlobalState";
 
-import BridgeSet from "../BridgeSet/BridgeSet";
+import BridgeSet from "../../BridgeSet/BridgeSet";
 
 import "./StationCaptain.css";
 

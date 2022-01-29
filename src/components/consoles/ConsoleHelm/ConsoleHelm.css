@@ -1,0 +1,58 @@
+#consoleHelm {
+	position: absolute;
+}
+
+#consoleHelm > h2 {
+	color: var(--panel-shadow);
+	position: absolute;
+	right: 22px;
+	text-shadow: 1px 1px 0px var(--panel-highlight);
+	top: 6px;
+}
+
+#consoleHelm > .techScreen {
+	display: flex;
+	flex-direction: column;
+	height: 360px;
+	left: 0;
+	top: 0;
+	width: 480px;
+}
+
+
+
+#consoleHelm #movementControls {
+	align-items: center;
+	background-image: url('../../..//assets/images/ui/scanlines.png');
+	display: flex;
+	flex-direction: column;
+	padding: 8px;
+}
+
+#consoleHelm #movementControls button {
+	padding: 2px;
+	width: 80px;
+}
+
+#consoleHelm #movementControls button[name='resetTurning'] {
+	margin-bottom: 4px;
+}
+
+#consoleHelm #movementControls > div:first-child {
+	position: relative;
+	top: -6px;
+}
+
+#consoleHelm #movementControls input[type='range'].vertical {
+	height: 140px;
+}
+
+#consoleHelm button.selected {
+	pointer-events: all !important;
+}
+
+#consoleHelm button.selected:hover {
+	background-color: var(--screen-border-disabled) !important;
+	border: solid 2px var(--screen-text) !important;
+	padding: 4px 8px !important;
+}

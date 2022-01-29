@@ -3,9 +3,9 @@ import { useStoreContext } from "../../utils/GlobalState";
 import { SHOW_MODAL, MODAL_VIEW_LOBBY } from "../../utils/actions";
 
 import TitleCard from "../../components/TitleCard/TitleCard";
-import StationCaptain from "../../components/StationCaptain/StationCaptain";
-import StationHelmWeapons from "../../components/StationHelmWeapons/StationHelmWeapons";
-import StationEngineeringSensors from "../../components/StationEngineeringSensors/StationEngineeringSensors";
+import StationCaptain from "../../components/stations/StationCaptain/StationCaptain";
+import StationHelmWeapons from "../../components/stations/StationHelmWeapons/StationHelmWeapons";
+import StationEngineeringSensors from "../../components/stations/StationEngineeringSensors/StationEngineeringSensors";
 
 import "./GameScreen.css";
 

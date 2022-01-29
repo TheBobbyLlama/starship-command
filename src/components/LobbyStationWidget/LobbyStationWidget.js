@@ -21,7 +21,7 @@ function LobbyStationWidget({ stationKey }) {
 
 	return (
 		<div className={"station " + stationKey + ((empty) ? " empty" : ((clickable) ? "" : " noClick"))} onClick={doAssignment}>
-			<label>{localizeKey("COMMON_STATION_" + stationKey.toUpperCase(), state)}</label>
+			<label>{localizeKey("STATION_" + stationKey.toUpperCase(), state)}</label>
 			<div>{state.lobby[stationKey] || "Empty"}</div>
 		</div>
 	);
