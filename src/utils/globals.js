@@ -7,6 +7,7 @@ export const generateGameState = async (shipClass) => {
 	const shipData = shipSpecifications.find(ship => ship.class === shipClass) || shipSpecifications[0];
 
 	gameState.ship = await JSON.parse(JSON.stringify(shipData)); // Deep copy!
+	gameState.ship.movement.controls = { turn: 0, throttle: 0 };
 	const jumpSystem = gameState.ship.subsystems.find(sub => sub.key === "SUBSYSTEM_JUMP_DRIVE");
 
 	// Players start with the jump drive fully powered!

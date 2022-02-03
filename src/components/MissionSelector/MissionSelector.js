@@ -34,7 +34,7 @@ function MissionSelector() {
 			setMissionList(result.missionList);
 		}
 
-		setSelectedMission(result.missionList.find(mission => mission.title === state.lobby.mission));
+		setSelectedMission(result.missionList?.find(mission => mission.title === state.lobby.mission));
 	}
 
 	// Get up to date info for a mission when it's selected.

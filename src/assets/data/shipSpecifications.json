@@ -100,7 +100,7 @@
 		"subsystems": [
 			{
 				"key": "SUBSYSTEM_CREW_QUARTERS",
-				"health": [ 20, 20 ],
+				"health": [ 30, 30 ],
 				"power": [ 5, 5 ]
 			},
 			{

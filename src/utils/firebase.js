@@ -41,6 +41,10 @@ const disconnectHandlers = {};
 export const auth = getAuth(app);
 export const db = getDatabase(app);
 
+// -------------------------------------------------------
+// SHARED FUNCTIONALITY
+// -------------------------------------------------------
+
 export const createListener = async (path, host, callback) => {
 	try {
 		var hostKey = compactKey(host);
@@ -98,6 +102,10 @@ export const killListener = async (path) => {
 	}
 }
 
+// -------------------------------------------------------
+// AUTHENTICATION
+// -------------------------------------------------------
+
 export const logInWithEmailAndPassword = async (email, password) => {
 	try {
 		await signInWithEmailAndPassword(auth, email, password);
@@ -144,6 +152,10 @@ export const logout = () => {
 	signOut(auth);
 };
 
+// -------------------------------------------------------
+// LOBBY
+// -------------------------------------------------------
+
 export const createGameLobby = async (username, language) => {
 	try {
 		var lobbyPath = "/lobby/" + compactKey(username);
@@ -170,6 +182,7 @@ export const createGameLobby = async (username, language) => {
 
 		return { status: true, lobby: newLobby };
 	} catch (err) {
+		console.log(err);
 		return { status: false };
 	}
 }
@@ -419,6 +432,22 @@ export const launchGame = async (lobby) => {
 		updates["/game/" + hostKey] = await generateGameState("SHIP_CLASS_LIGHT_CRUISER");
 
 		await update(ref(db), updates);
+
+		return { status: true };
+	} catch (err) {
+		console.log(err);
+		return { status: false, message: err.message };
+	}
+}
+
+// -------------------------------------------------------
+// GAMEPLAY
+// -------------------------------------------------------
+
+export const setShipControls = async (host, turn, throttle) => {
+	try {
+		var shipPath = "/game/" + compactKey(host) + "/ship";
+		await set(ref(db, shipPath + "/movement/controls"), { turn, throttle });
 
 		return { status: true };
 	} catch (err) {

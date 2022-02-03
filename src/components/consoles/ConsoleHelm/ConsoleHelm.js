@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useStoreContext } from "../../../utils/GlobalState";
+import { setShipControls } from "../../../utils/firebase";
 
 import { localizeKey } from "../../../localization/localization";
 
@@ -14,6 +15,7 @@ function ConsoleHelm() {
 	const [mode, setMode] = useState(MODE_STANDARD);
 	const [turning, setTurning] = useState(0);
 	const [throttle, setThrottle] = useState(0);
+	const [lastUpdate, setLastUpdate] = useState(Date.now());
 
 	const onTurning = (value) => {
 		setTurning(value);
@@ -23,13 +25,27 @@ function ConsoleHelm() {
 		setThrottle(value);
 	}
 
+	useEffect(() => {
+		const checkControls = () => {
+			if (Date.now() - lastUpdate > 500) {
+				setShipControls(state.lobby.host, turning, throttle);
+				setLastUpdate(Date.now());
+			}
+		};
+
+		const changeListener = setInterval(checkControls, 500);
+		checkControls();
+
+		return () => { clearInterval(changeListener); };
+	}, [ state.lobby.host, lastUpdate, throttle, turning ]);
+
 	return (
 		<div id="consoleHelm" className="techPanel">
 			<h2>{localizeKey("STATION_HELM", state)}</h2>
 			<div className="techScreen console">
 				<div>
 					<h2>{localizeKey("STATION_HELM", state)}</h2>
-					{(state.missionInfo?.ship?.redAlert) ? <div className="alert">{localizeKey("COMMON_LABEL_ALERT", state)}</div> : <></>}
+					{(state.missionInfo?.ship?.status?.alert) ? <div className="alert">{localizeKey("COMMON_LABEL_ALERT", state)}</div> : <></>}
 				</div>
 				<div>
 					<div>
