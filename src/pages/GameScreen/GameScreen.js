@@ -2,6 +2,10 @@ import { useStoreContext } from "../../utils/GlobalState";
 
 import { SHOW_MODAL, MODAL_VIEW_LOBBY } from "../../utils/actions";
 
+import GameListener from "../../components/GameListener/GameListener";
+import GameSoundManager from "../../components/GameSoundManager/GameSoundManager";
+
+
 import TitleCard from "../../components/TitleCard/TitleCard";
 import StationCaptain from "../../components/stations/StationCaptain/StationCaptain";
 import StationHelmWeapons from "../../components/stations/StationHelmWeapons/StationHelmWeapons";
@@ -17,6 +21,9 @@ function GameScreen() {
 	}
 
 	return (
+		<>
+		<GameListener />
+		<GameSoundManager />
 		<div id="gameScreen">
 			<TitleCard title={state.lobby.mission} />
 			<div id="viewLobby" onClick={showLobbyScreen}>-</div>
@@ -24,6 +31,7 @@ function GameScreen() {
 			{((state.lobby.helm === state.user) || (state.lobby.weapons === state.user)) ? <StationHelmWeapons /> : <></>}
 			{((state.lobby.engineering === state.user) || (state.lobby.sensors === state.user)) ? <StationEngineeringSensors /> : <></>}
 		</div>
+		</>
 	);
 };
 

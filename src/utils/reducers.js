@@ -5,6 +5,7 @@ import {
 	SET_GAME_STATE,
 	SET_CURRENT_USER,
 	UPDATE_LOBBY,
+	UPDATE_GAME_DATA,
 	ADD_NOTIFICATION,
 	SHOW_MODAL,
 	GAME_STATE_MAIN_MENU,
@@ -78,6 +79,24 @@ export const reducer = (state, action) => {
 
 			if (action.missionInfo) {
 				newState.missionInfo = action.missionInfo;
+			}
+
+			return newState;
+		case UPDATE_GAME_DATA:
+			newState = { ...state };
+
+			if (action.path) {
+				newState.gameData = { ...newState.gameData };
+				let pathComponents = action.path.split("/");
+				let curPath = newState.gameData;
+
+				for (let i = 0; i < pathComponents.length; i++) {
+					curPath = curPath[pathComponents[i]];
+				}
+
+				curPath = action.data;
+			} else {
+				newState.gameData = action.data;
 			}
 
 			return newState;
