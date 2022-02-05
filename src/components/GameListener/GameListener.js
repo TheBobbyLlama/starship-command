@@ -1,22 +1,33 @@
 import { useState, useEffect } from "react";
-import { createListener, killListener, createEventListener } from "../../utils/firebase";
+import { createListener, killListener, createEventListener, getGameData } from "../../utils/firebase";
 import { useStoreContext } from "../../utils/GlobalState";
 
 import { UPDATE_GAME_DATA } from "../../utils/actions";
-
-var Sound = require("react-sound").default;
-
 
 function GameListener() {
 	const [state, dispatch] = useStoreContext();
 	const [startTime,] = useState(Date.now());
 
+	const loadGameData = async () => {
+		const result = await getGameData(state.lobby.host);
+
+		if (result.status) {
+			dispatch({ type: UPDATE_GAME_DATA, data: result.gameData });
+		} else {
+			// TODO - Error modal?
+		}
+	}
+
+	if (!state.gameData) {
+		loadGameData();
+	}
+
 	useEffect(() => {
-		const lobbyUpdate = async (data) => {
+		const gameStateUpdate = async (data) => {
 			dispatch({ type: UPDATE_GAME_DATA, data });
 		}
 	
-		const processLobbyEvent = (event) => {
+		const processGameEvent = (event) => {
 			// Only process if it's new!
 			if (event.timestamp > startTime) {
 				// TODO!
@@ -24,8 +35,8 @@ function GameListener() {
 		}
 
 		if (state.lobby?.host) {
-			createListener("/game/", state.lobby.host, lobbyUpdate);
-			createEventListener("/game_event/", state.lobby.host, processLobbyEvent)
+			createListener("/game/", state.lobby.host, gameStateUpdate);
+			createEventListener("/game_event/", state.lobby.host, processGameEvent)
 		}
 
 		return () => {

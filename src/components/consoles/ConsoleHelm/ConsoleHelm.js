@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useStoreContext } from "../../../utils/GlobalState";
-import { setShipControls } from "../../../utils/firebase";
+import { postGameStateUpdate } from "../../../utils/firebase";
 
 import { localizeKey } from "../../../localization/localization";
 
@@ -13,8 +13,8 @@ const MODE_SHUTTLE_BAY = 2;
 function ConsoleHelm() {
 	const [state, ] = useStoreContext();
 	const [mode, setMode] = useState(MODE_STANDARD);
-	const [turning, setTurning] = useState(0);
-	const [throttle, setThrottle] = useState(0);
+	const [turning, setTurning] = useState(state.gameData?.ship?.helmControls.turn || 0);
+	const [throttle, setThrottle] = useState(state.gameData?.ship?.helmControls.throttle || 0);
 	const [lastUpdate, setLastUpdate] = useState(Date.now());
 
 	const onTurning = (value) => {
@@ -27,8 +27,11 @@ function ConsoleHelm() {
 
 	useEffect(() => {
 		const checkControls = () => {
-			if (Date.now() - lastUpdate > 500) {
-				setShipControls(state.lobby.host, turning, throttle);
+			if ((state.gameData?.ship) && (Date.now() - lastUpdate > 500)) {
+				if ((state.gameData.ship.helmControls.turn !== turning) || (state.gameData.ship.helmControls.throttle !== throttle)) {
+					const sendData = { ship: { helmControls: { turn: Number(turning), throttle: Number(throttle) } } };
+					postGameStateUpdate(state.lobby.host, [ "ship/helmControls" ], sendData);
+				}
 				setLastUpdate(Date.now());
 			}
 		};
@@ -37,7 +40,7 @@ function ConsoleHelm() {
 		checkControls();
 
 		return () => { clearInterval(changeListener); };
-	}, [ state.lobby.host, lastUpdate, throttle, turning ]);
+	}, [ state.lobby.host, state.gameData, lastUpdate, throttle, turning ]);
 
 	return (
 		<div id="consoleHelm" className="techPanel">

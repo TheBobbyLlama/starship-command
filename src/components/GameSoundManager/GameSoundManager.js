@@ -9,7 +9,7 @@ function GameSoundManager() {
 
 	window.soundManager.setup({ debugMode: false, ignoreMobileRestrictions: true }); // Get rid of the godawful console spam in development mode, and also try to allow multiple sounds on mobile devices.
 
-	var volTarget = 0.375 * Math.max(0.25 * Math.abs(state.gameData?.ship?.movement?.controls?.turn || 0), Math.abs(state.gameData?.ship?.movement?.controls?.throttle || 0));
+	var volTarget = 0.375 * Math.max(0.25 * Math.abs(state.gameData?.ship?.helmControls?.turn || 0), Math.abs(state.gameData?.ship?.helmControls?.throttle || 0));
 
 	if (volTarget > 0) volTarget += 12.5;
 

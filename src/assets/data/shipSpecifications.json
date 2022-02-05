@@ -2,88 +2,85 @@
 	{
 		"class": "SHIP_CLASS_CORVETTE",
 		"movement": {
-			"x": 0,
-			"y": 0,
-			"turnrate": [ 0, 20 ],
-			"speed": [ 0, 50 ],
-			"inertia": 5
+			"turnrate": 10,
+			"speed": 200,
+			"inertia": 0.5
 		},
 		"subsystems": [
 			{
 				"key": "SUBSYSTEM_CREW_QUARTERS",
-				"health": [ 20, 20 ],
-				"power": [ 5, 5 ]
+				"health": 20,
+				"power": 5
 			},
 			{
 				"key": "SUBSYSTEM_ENGINES",
-				"health": [ 20, 20 ],
-				"power": [ 10, 10 ],
+				"health": 20,
+				"power": 10,
 				"external": true
 			},
 			{
 				"key": "SUBSYSTEM_JUMP_DRIVE",
-				"health": [ 15, 15 ],
-				"power": [ 0, 50 ],
-				"priority": -100,
+				"health": 15,
+				"power": 50,
 				"external": true
 			},
 			{
 				"key": "SUBSYSTEM_LIFE_SUPPORT",
-				"health": [ 10, 10 ],
-				"power": [ 5, 5 ]
+				"health": 10,
+				"power": 5
 			},
 			{
 				"key": "SUBSYSTEM_MAGAZINE",
-				"health": [ 10, 10 ],
-				"power": [ 3, 3 ]
+				"health": 10,
+				"power": 3
 			},
 			{
 				"key": "SUBSYSTEM_MEDBAY",
-				"health": [ 10, 10 ],
-				"power": [ 5, 5 ]
+				"health": 10,
+				"power": 5
 			},
 			{
 				"key": "SUBSYSTEM_REACTOR",
-				"health": [ 20, 20 ],
+				"health": 20,
 				"output": 100
 			},
 			{
 				"key": "SUBSYSTEM_SENSORS",
-				"health": [ 10, 10 ],
-				"power": [ 5, 5 ],
+				"health": 10,
+				"power": 5,
 				"external": true
 			},
 			{
 				"key": "SUBSYSTEM_SHIELDS",
-				"health": [ 10, 10 ],
-				"power": [ 10, 10 ]
+				"health": 10,
+				"power": 10
 			},
 			{
 				"key": "SUBSYSTEM_SHUTTLE_BAY",
-				"health": [ 10, 10 ],
-				"power": [ 5, 5 ],
+				"health": 10,
+				"power": 5,
 				"external": true
 			},
 			{
 				"key": "SUBSYSTEM_STRUCTURE",
-				"health": [ 20, 20 ]
+				"health": 20
 			},
 			{
 				"key": "SUBSYSTEM_WEAPON_CANNON",
-				"health": [ 10, 10 ],
-				"power": [ 10, 10 ],
+				"health": 10,
+				"power": 10,
 				"external": true
 			},
 			{
 				"key": "SUBSYSTEM_WEAPON_CANNON",
-				"health": [ 10, 10 ],
-				"power": [ 10, 10 ],
+				"health": 10,
+				"power": 10,
 				"external": true
 			},
 			{
 				"key": "SUBSYSTEM_WEAPON_LAUNCHER_FRONT",
-				"health": [ 10, 10 ],
-				"power": [ 5, 5 ],
+				"health": 10,
+				"power": 5,
 				"external": true
 			}
 		]
@@ -91,118 +88,115 @@
 	{
 		"class": "SHIP_CLASS_LIGHT_CRUISER",
 		"movement": {
-			"x": 0,
-			"y": 0,
-			"turnrate": [ 0, 15 ],
-			"speed": [ 0, 20 ],
-			"inertia": 15
+			"turnrate": 5,
+			"speed": 100,
+			"inertia": 0.75
 		},
 		"subsystems": [
 			{
 				"key": "SUBSYSTEM_CREW_QUARTERS",
-				"health": [ 30, 30 ],
-				"power": [ 5, 5 ]
+				"health": 30,
+				"power": 5
 			},
 			{
 				"key": "SUBSYSTEM_ENGINES",
-				"health": [ 20, 20 ],
-				"power": [ 10, 10 ],
+				"health": 20,
+				"power": 10,
 				"external": true
 			},
 			{
 				"key": "SUBSYSTEM_JUMP_DRIVE",
-				"health": [ 15, 15 ],
-				"power": [ 0, 50 ],
-				"external": true,
-				"priority": -100
+				"health": 15,
+				"power": 50,
+				"external": true
 			},
 			{
 				"key": "SUBSYSTEM_LIFE_SUPPORT",
-				"health": [ 10, 10 ],
-				"power": [ 5, 5 ]
+				"health": 10,
+				"power": 5
 			},
 			{
 				"key": "SUBSYSTEM_MAGAZINE",
-				"health": [ 10, 10 ],
-				"power": [ 3, 3 ]
+				"health": 10,
+				"power": 3
 			},
 			{
 				"key": "SUBSYSTEM_MEDBAY",
-				"health": [ 10, 10 ],
-				"power": [ 5, 5 ]
+				"health": 10,
+				"power": 5
 			},
 			{
 				"key": "SUBSYSTEM_REACTOR",
-				"health": [ 20, 20 ],
+				"health": 20,
 				"output": 130
 			},
 			{
 				"key": "SUBSYSTEM_SENSORS",
-				"health": [ 10, 10 ],
-				"power": [ 5, 5 ],
+				"health": 10,
+				"power": 5,
 				"external": true
 			},
 			{
 				"key": "SUBSYSTEM_SHIELDS",
-				"health": [ 10, 10 ],
-				"power": [ 15, 15 ]
+				"health": 10,
+				"power": 15
 			},
 			{
 				"key": "SUBSYSTEM_SHUTTLE_BAY",
-				"health": [ 20, 20 ],
-				"power": [ 10, 10 ],
+				"health": 20,
+				"power": 10,
 				"external": true
 			},
 			{
 				"key": "SUBSYSTEM_STRUCTURE",
-				"health": [ 35, 35 ]
+				"health": 35
 			},
 			{
 				"key": "SUBSYSTEM_WEAPON_CANNON",
-				"health": [ 10, 10 ],
-				"power": [ 10, 10 ],
+				"health": 10,
+				"power": 10,
 				"external": true
 			},
 			{
 				"key": "SUBSYSTEM_WEAPON_CANNON",
-				"health": [ 10, 10 ],
-				"power": [ 10, 10 ],
+				"health": 10,
+				"power": 10,
 				"external": true
 			},
 			{
 				"key": "SUBSYSTEM_WEAPON_CANNON",
-				"health": [ 10, 10 ],
-				"power": [ 10, 10 ],
+				"health": 10,
+				"power": 10,
 				"external": true
 			},
 			{
 				"key": "SUBSYSTEM_WEAPON_CANNON",
-				"health": [ 10, 10 ],
-				"power": [ 10, 10 ],
+				"health": 10,
+				"power": 10,
 				"external": true
 			},
 			{
 				"key": "SUBSYSTEM_WEAPON_CANNON",
-				"health": [ 10, 10 ],
-				"power": [ 10, 10 ],
+				"health": 10,
+				"power": 10,
 				"external": true
 			},
 			{
 				"key": "SUBSYSTEM_WEAPON_LAUNCHER_FRONT",
-				"health": [ 10, 10 ],
-				"power": [ 5, 5 ],
+				"health": 10,
+				"power": 5,
 				"external": true
 			},
 			{
 				"key": "SUBSYSTEM_WEAPON_LAUNCHER_FRONT",
-				"health": [ 10, 10 ],
-				"power": [ 5, 5 ],
+				"health": 10,
+				"power": 5,
 				"external": true
 			},
 			{
 				"key": "SUBSYSTEM_WEAPON_LAUNCHER_REAR",
-				"health": [ 10, 10 ],
-				"power": [ 5, 5 ],
+				"health":  10,
+				"power": 5,
 				"external": true
 			}
 		]

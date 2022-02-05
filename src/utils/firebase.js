@@ -191,14 +191,18 @@ export const closeGameLobby = async (username) => {
 	try {
 		var hostKey = compactKey(username);
 		var lobbyPath = "/lobby/" + hostKey;
-		var eventPath = "/lobby_event/" + hostKey;
+		var lobbyEventPath = "/lobby_event/" + hostKey;
+		var gamePath = "/game/" + hostKey;
+		var gameEventPath = "/game_event/" + hostKey;
 
 		disconnectHandlers.lobby?.cancel();
 		delete disconnectHandlers.lobby;
 
 		const updates = {};
 		updates[lobbyPath] = null;
-		updates[eventPath] = null;
+		updates[lobbyEventPath] = null;
+		updates[gamePath] = null;
+		updates[gameEventPath] = null;
 
 		await update(ref(db), updates);
 
@@ -440,18 +444,48 @@ export const launchGame = async (lobby) => {
 	}
 }
 
+export const getGameData = async (host) => {
+	try {
+		const hostKey = compactKey(host);
+
+		const gameData = await get(ref(db, "/game/" + hostKey));
+
+		return { status: true, gameData: gameData.val() };
+	} catch (err) {
+		console.log(err);
+		return { status: false, message: err.message };
+	}
+}
+
+export const sendGameEvent = async(host, event) => {
+	try {
+		const hostKey = compactKey(host);
+		event.timestamp = Date.now();
+		await push(ref(db, "/game_event/" + hostKey), event);
+	} catch (err) {
+		console.log(err);
+	}
+}
+
 // -------------------------------------------------------
 // GAMEPLAY
 // -------------------------------------------------------
 
-export const setShipControls = async (host, turn, throttle) => {
-	try {
-		var shipPath = "/game/" + compactKey(host) + "/ship";
-		await set(ref(db, shipPath + "/movement/controls"), { turn, throttle });
+export const postGameStateUpdate = async (host, updateList, gameData) => {
+	if (!updateList.length) return;
 
-		return { status: true };
+	try {
+		var gamePath = "/game/" + compactKey(host);
+		const updates = {};
+
+		updateList.forEach(path => {
+			var findPath = gameData;
+			path.split("/").forEach(subPath => findPath = findPath[subPath]);
+			updates[path] = findPath;
+		});
+
+		await update(ref(db, gamePath), updates);
 	} catch (err) {
 		console.log(err);
-		return { status: false, message: err.message };
 	}
 }
