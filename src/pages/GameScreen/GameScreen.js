@@ -11,7 +11,7 @@ import GameSoundManager from "../../components/GameSoundManager/GameSoundManager
 
 import TitleCard from "../../components/TitleCard/TitleCard";
 import StationCaptain from "../../components/stations/StationCaptain/StationCaptain";
-import StationHelmWeapons from "../../components/stations/StationHelmWeapons/StationHelmWeapons";
+import StationHelmDefense from "../../components/stations/StationHelmDefense/StationHelmDefense";
 import StationEngineeringSensors from "../../components/stations/StationEngineeringSensors/StationEngineeringSensors";
 
 import "./GameScreen.css";
@@ -59,7 +59,7 @@ function GameScreen() {
 			<TitleCard title={state.lobby.mission} />
 			<div id="viewLobby" onClick={showLobbyScreen}>-</div>
 			{(state.lobby.captain === state.user) ? <StationCaptain /> : <></>}
-			{((state.lobby.helm === state.user) || (state.lobby.weapons === state.user)) ? <StationHelmWeapons /> : <></>}
+			{((state.lobby.helm === state.user) || (state.lobby.defense === state.user)) ? <StationHelmDefense /> : <></>}
 			{((state.lobby.engineering === state.user) || (state.lobby.sensors === state.user)) ? <StationEngineeringSensors /> : <></>}
 		</div>
 		</>

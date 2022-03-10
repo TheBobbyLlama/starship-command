@@ -5,7 +5,7 @@
 	transition: left 1s ease-out, right 1s ease-out, top 1s ease-out;
 }
 
-#stationEngineeringSensors.sensorsStation-enter-active #bridgeSet, #stationEngineeringSensors.sensorsStation-enter-done #bridgeSet {
+#stationEngineeringSensors.sensorsStation-enter-active #bridgeSet, #stationEngineeringSensors.sensors #bridgeSet {
 	left: auto !important;
 	right: 90px;
 	top: -360px;
@@ -47,32 +47,32 @@
 	top: 60px;
 }
 
-#stationEngineeringSensors.sensorsStation-enter-active #consoleSensors, #stationEngineeringSensors.sensorsStation-enter-done #consoleSensors {
+#stationEngineeringSensors.sensorsStation-enter-active #consoleSensors, #stationEngineeringSensors.sensors #consoleSensors {
 	right: 40px;
 	top: 60px;
 }
 
-#stationEngineeringSensors.sensorsStation-enter-active #consoleEngineering, #stationEngineeringSensors.sensorsStation-enter-done #consoleEngineering {
+#stationEngineeringSensors.sensorsStation-enter-active #consoleEngineering, #stationEngineeringSensors.sensors #consoleEngineering {
 	left: -1000px;
 	top: 60px;
 }
 
-#stationEngineeringSensors.sensorsStation-enter-done.viewScreen-enter #bridgeSet, #stationEngineeringSensors.sensorsStation-enter-done.viewScreen-enter-done #bridgeSet {
+#stationEngineeringSensors.sensors.viewScreen-enter #bridgeSet, #stationEngineeringSensors.sensors.viewScreen-enter-done #bridgeSet {
 	top: -10px;
 	right: 50px;
 }
 
-#stationEngineeringSensors.sensorsStation-enter-done.viewScreen-enter-active #bridgeSet {
+#stationEngineeringSensors.sensors.viewScreen-enter-active #bridgeSet {
 	top: -10px;
 	right: 50px;
 }
 
-#stationEngineeringSensors.sensorsStation-enter-done.viewScreen-enter #consoleSensors, #stationEngineeringSensors.sensorsStation-enter-done.viewScreen-enter-done #consoleSensors {
+#stationEngineeringSensors.sensors.viewScreen-enter #consoleSensors, #stationEngineeringSensors.sensors.viewScreen-enter-done #consoleSensors {
 	right: -20px;
 	top: 456px;
 }
 
-#stationEngineeringSensors.sensorsStation-enter-done.viewScreen-enter-active #consoleSensors {
+#stationEngineeringSensors.sensors.viewScreen-enter-active #consoleSensors {
 	right: -20px;
 	top: 456px;
 }

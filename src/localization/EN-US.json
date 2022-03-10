@@ -24,7 +24,7 @@
 	"STATION_ENGINEERING": "Engineering",
 	"STATION_HELM": "Helm",
 	"STATION_SENSORS": "Sensors",
-	"STATION_WEAPONS": "Weapons",
+	"STATION_DEFENSE": "Defense",
 	"SUBSYSTEM_CREW_QUARTERS": "Crew Quarters",
 	"SUBSYSTEM_ENGINES": "Gravity Drive",
 	"SUBSYSTEM_JUMP_DRIVE": "Jump Drive",

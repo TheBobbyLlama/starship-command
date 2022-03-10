@@ -93,12 +93,12 @@
 	width: 8px;
 }
 
-#lobbyStations .station.weapons label {
+#lobbyStations .station.defense label {
 	color: var(--division-defense);
 }
 
-#lobbyStations .station.weapons label::before {
-	background-image: url("../../assets//images/ui/badge_weapons.png");
+#lobbyStations .station.defense label::before {
+	background-image: url("../../assets//images/ui/badge_defense.png");
 	content: ' ';
 	display: block;
 	height: 8px;

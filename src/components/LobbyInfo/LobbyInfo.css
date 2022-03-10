@@ -78,12 +78,12 @@
 	width: 8px;
 }
 
-#lobbyInfo .weapons {
+#lobbyInfo .defense {
 	color: var(--division-defense) !important;
 }
 
-#lobbyInfo .weapons::before {
-	background-image: url("../../assets//images/ui/badge_weapons.png");
+#lobbyInfo .defense::before {
+	background-image: url("../../assets//images/ui/badge_defense.png");
 	content: ' ';
 	display: block;
 	height: 8px;

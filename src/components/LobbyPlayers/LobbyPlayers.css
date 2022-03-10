@@ -73,12 +73,12 @@
 	width: 8px;
 }
 
-#lobbyPlayers div.playerWidget div.weapons {
+#lobbyPlayers div.playerWidget div.defense {
 	color: var(--division-defense);
 }
 
-#lobbyPlayers div.playerWidget div.weapons::before {
-	background-image: url("../../assets//images/ui/badge_weapons.png");
+#lobbyPlayers div.playerWidget div.defense::before {
+	background-image: url("../../assets//images/ui/badge_defense.png");
 	content: ' ';
 	display: block;
 	height: 8px;

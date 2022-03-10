@@ -5,7 +5,7 @@ const shipSpecifications = require("../assets/data/shipSpecifications.json");
 const DEGREE = 0.0174533;  // 1 degree, in radians.
 const PI_2 = Math.PI * 2;
 
-export const bridgeStations = [ "captain", "engineering", "helm", "sensors", "weapons" ];
+export const bridgeStations = [ "captain", "engineering", "helm", "sensors", "defense" ];
 
 export const createShip = async (shipClass, played=false) => {
 	const ship = {};

@@ -7,17 +7,17 @@ import { MODAL_VIEW_LOBBY } from "../../../utils/actions";
 
 import BridgeSet from "../../BridgeSet/BridgeSet";
 import ConsoleHelm from "../../consoles/ConsoleHelm/ConsoleHelm";
-import ConsoleWeapons from "../../consoles/ConsoleWeapons/ConsoleWeapons";
+import ConsoleDefense from "../../consoles/ConsoleDefense/ConsoleDefense";
 
-import "./StationHelmWeapons.css";
+import "./StationHelmDefense.css";
 
-function StationHelmWeapons() {
+function StationHelmDefense() {
 	const [state, ] = useStoreContext();
 	const mainRef = useRef(null);
 	const [viewing, setViewing] = useState("");
 	const [viewTarget, setViewTarget] = useState("console");
 
-	const curStation = ((state.lobby.helm === state.user) ? "helm" : (state.lobby.weapons === state.user) ? "weapons" : "error");
+	const curStation = ((state.lobby.helm === state.user) ? "helm" : (state.lobby.defense === state.user) ? "defense" : "error");
 	const showMovementControls = (!state.modal);
 
 	useEffect(() => {
@@ -45,8 +45,8 @@ function StationHelmWeapons() {
 		setTimeout(() => { setViewing("screen"); }, 1000);
 	}
 
-	const switchToWeaponsStation = () => {
-		assignToStation(state.lobby, state.user, "weapons");
+	const switchToDefenseStation = () => {
+		assignToStation(state.lobby, state.user, "defense");
 	}
 
 	const switchToHelmStation = () => {
@@ -55,8 +55,8 @@ function StationHelmWeapons() {
 
 	return (
 		<CSSTransition
-			classNames="weaponStation"
-			in={curStation === "weapons"}
+			classNames="defenseStation"
+			in={curStation === "defense"}
 			nodeRef={mainRef}
 			timeout={1000}
 		>
@@ -66,18 +66,18 @@ function StationHelmWeapons() {
 				nodeRef={mainRef}
 				timeout={1000}
 			>
-				<div id="stationHelmWeapons" className={curStation} ref={mainRef}>
+				<div id="stationHelmDefense" className={curStation} ref={mainRef}>
 					<BridgeSet />
 					<ConsoleHelm />
-					<ConsoleWeapons />
+					<ConsoleDefense />
 					{((showMovementControls) && (viewing === "screen")) ? <div className="stationTransitionDown" onClick={goToConsole}></div> : <></>}
 					{((showMovementControls) && (viewing === "console")) ? <div className="stationTransitionUp" onClick={goToScreen}></div> : <></>}
-					{((showMovementControls) && (viewing ==="console") && (curStation === "helm") && (!state.lobby.weapons)) ? <div className="stationTransitionRight" onClick={switchToWeaponsStation}></div> : <></>}
-					{((showMovementControls) && (viewing ==="console") && (curStation === "weapons") && (!state.lobby.helm)) ? <div className="stationTransitionLeft" onClick={switchToHelmStation}></div> : <></>}
+					{((showMovementControls) && (viewing ==="console") && (curStation === "helm") && (!state.lobby.defense)) ? <div className="stationTransitionRight" onClick={switchToDefenseStation}></div> : <></>}
+					{((showMovementControls) && (viewing ==="console") && (curStation === "defense") && (!state.lobby.helm)) ? <div className="stationTransitionLeft" onClick={switchToHelmStation}></div> : <></>}
 				</div>
 			</CSSTransition>
 		</CSSTransition>
 	);
 }
 
-export default StationHelmWeapons;
+export default StationHelmDefense;

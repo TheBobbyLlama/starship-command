@@ -1,0 +1,82 @@
+#stationHelmDefense #bridgeSet {
+	left: -10px;
+	top: -360px;
+	right: auto;
+	transition: left 1s ease-out, right 1s ease-out, top 1s ease-out;
+}
+
+#stationHelmDefense.defenseStation-enter-active #bridgeSet, #stationHelmDefense.defense #bridgeSet {
+	left: auto !important;
+	right: 90px;
+	top: -360px;
+}
+
+#stationHelmDefense #consoleHelm {
+	left: 40px;
+	top: 60px;
+	transition: left 1s ease-out, top 1s ease-out;
+}
+
+#stationHelmDefense #consoleDefense {
+	right: -1000px;
+	top: 60px;
+	transition: right 1s ease-out, top 1s ease-out;
+}
+
+#stationHelmDefense.viewScreen-enter #bridgeSet, #stationHelmDefense.viewScreen-enter-done #bridgeSet {
+	top: -10px;
+	left: -40px;
+}
+
+#stationHelmDefense.viewScreen-enter-active #bridgeSet {
+	top: -10px;
+	left: -40px;
+}
+
+#stationHelmDefense.viewScreen-enter #consoleHelm, #stationHelmDefense.viewScreen-enter-done #consoleHelm {
+	left: -20px;
+	top: 456px;
+}
+
+#stationHelmDefense.viewScreen-enter-active #consoleHelm {
+	left: -20px;
+	top: 456px;
+}
+
+#stationHelmDefense.viewScreen-enter #consoleDefense, #stationHelmDefense.viewScreen-enter-done #consoleDefense {
+	top: 60px;
+}
+
+#stationHelmDefense.defenseStation-enter-active #consoleDefense, #stationHelmDefense.defense #consoleDefense {
+	right: 40px;
+	top: 60px;
+}
+
+#stationHelmDefense.defenseStation-enter-active #consoleHelm, #stationHelmDefense.defense #consoleHelm {
+	left: -1000px;
+	top: 60px;
+}
+
+#stationHelmDefense.defense.viewScreen-enter #bridgeSet, #stationHelmDefense.defense.viewScreen-enter-done #bridgeSet {
+	top: -10px;
+	right: 50px;
+}
+
+#stationHelmDefense.defense.viewScreen-enter-active #bridgeSet {
+	top: -10px;
+	right: 50px;
+}
+
+#stationHelmDefense.defense.viewScreen-enter #consoleDefense, #stationHelmDefense.defense.viewScreen-enter-done #consoleDefense {
+	right: -20px;
+	top: 456px;
+}
+
+#stationHelmDefense.defense.viewScreen-enter-active #consoleDefense {
+	right: -20px;
+	top: 456px;
+}
+
+#stationHelmDefense.defenseStation-enter-active .stationTransitionLeft, #stationHelmDefense.defenseStation-enter-active .stationTransitionUp, #stationHelmDefense.defenseStation-exit-active .stationTransitionRight, #stationHelmDefense.defenseStation-exit-active .stationTransitionUp {
+	display: none;
+}

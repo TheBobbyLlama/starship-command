@@ -15,7 +15,7 @@ function LobbyStations() {
 			<div>
 				<div>
 					<LobbyStationWidget stationKey="helm" />
-					<LobbyStationWidget stationKey="weapons" />
+					<LobbyStationWidget stationKey="defense" />
 				</div>
 				<div>
 					<LobbyStationWidget stationKey="captain" />
