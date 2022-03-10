@@ -1,6 +1,7 @@
 [
 	{
 		"class": "SHIP_CLASS_CORVETTE",
+		"size": [ 30, 20 ],
 		"movement": {
 			"turnrate": 10,
 			"speed": 200,
@@ -87,6 +88,7 @@
 	},
 	{
 		"class": "SHIP_CLASS_LIGHT_CRUISER",
+		"size": [ 50, 30 ],
 		"movement": {
 			"turnrate": 5,
 			"speed": 100,

@@ -111,5 +111,5 @@ const doShipMovement = (gameData) => {
 	// TODO - Collisions!
 
 	// Apply velocity to ship position.
-	gameData.ship.movement.position = [ gameData.ship.movement.position[0] + gameData.ship.movement.velocity[0], gameData.ship.movement.position[0] + gameData.ship.movement.velocity[1] ];
+	gameData.ship.movement.position = [ gameData.ship.movement.position[0] + gameData.ship.movement.velocity[0], gameData.ship.movement.position[1] + gameData.ship.movement.velocity[1] ];
 }

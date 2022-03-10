@@ -4,6 +4,8 @@ import { postGameStateUpdate } from "../../../utils/firebase";
 
 import { localizeKey } from "../../../localization/localization";
 
+import MapHelm from "../../MapHelm/MapHelm";
+
 import "./ConsoleHelm.css";
 
 const MODE_STANDARD = 0;
@@ -64,8 +66,8 @@ function ConsoleHelm() {
 							<button name="resetThrottle" type="button" onClick={() => onThrottle(0)}>{localizeKey("HELM_LABEL_THROTTLE", state).replace("<THROTTLE>", throttle)}</button>
 						</div>
 					</div>
-					<div>
-						TODO!
+					<div id="helmReadout">
+						<MapHelm />
 					</div>
 				</div>
 			</div>

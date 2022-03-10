@@ -44,8 +44,10 @@ const Vector2D = {
 	normalize(vector) {
 		const myLen = this.length(vector);
 
-		vector[0] = vector[0] / myLen;
-		vector[1] = vector[1] / myLen;
+		if (myLen) {
+			vector[0] = vector[0] / myLen;
+			vector[1] = vector[1] / myLen;
+		}
 
 		return myLen;
 	},
@@ -62,7 +64,7 @@ const Vector2D = {
 		return a[0] * b[0] + a[1] * b[1];
 	},
 
-	// Calculates the dot product of two vectors as though they were unit vectors, which is also the angle of the cosine between them.
+	// Calculates the dot product of two vectors as though they were unit vectors, which is also the cosine of the angle between them.
 	dotProductUnit(a, b) {
 		const a2 = this.normalizeCopy(a);
 		const b2 = this.normalizeCopy(b);

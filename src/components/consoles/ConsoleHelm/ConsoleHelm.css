@@ -19,8 +19,6 @@
 	width: 480px;
 }
 
-
-
 #consoleHelm #movementControls {
 	align-items: center;
 	background-image: url('../../..//assets/images/ui/scanlines.png');
@@ -47,12 +45,22 @@
 	height: 140px;
 }
 
-#consoleHelm button.selected {
+#consoleHelm #movementControls button.selected {
 	pointer-events: all !important;
 }
 
-#consoleHelm button.selected:hover {
+#consoleHelm #movementControls button.selected:hover {
 	background-color: var(--screen-border-disabled) !important;
 	border: solid 2px var(--screen-text) !important;
 	padding: 4px 8px !important;
+}
+
+#consoleHelm #helmReadout {
+	align-items: stretch;
+	display: flex;
+	width: 100%;
+}
+
+#consoleHelm #helmReadout > * {
+	width: 100%;
 }

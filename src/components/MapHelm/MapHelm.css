@@ -1,0 +1,7 @@
+#helmMap {
+	align-items: stretch;
+	border: solid 2px var(--screen-border);
+	display: flex;
+	justify-content: stretch;
+	margin: 8px 0 0 8px;
+}
