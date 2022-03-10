@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/starship-command/static/css/main.e8650538.css",
+    "main.js": "/starship-command/static/js/main.3be34074.js",
+    "static/js/787.9e485456.chunk.js": "/starship-command/static/js/787.9e485456.chunk.js",
+    "static/media/Stars.png": "/starship-command/static/media/Stars.579d15d5ba86a202e1cb.png",
+    "static/media/pixelfj8pt1.normal.ttf": "/starship-command/static/media/pixelfj8pt1.normal.1d926fed08ae87902022.ttf",
+    "static/media/Dico.ttf": "/starship-command/static/media/Dico.7acfb9b5c88ea92d826e.ttf",
+    "static/media/manaspace.regular.ttf": "/starship-command/static/media/manaspace.regular.0d8565d99646c0054f84.ttf",
+    "static/media/arrow.xcf": "/starship-command/static/media/arrow.69b240b8a8b6f1257b82.xcf",
+    "static/media/badge_defense.xcf": "/starship-command/static/media/badge_defense.a111a0ed0878ed8cc862.xcf",
+    "static/media/badge_sensors.xcf": "/starship-command/static/media/badge_sensors.9abfc575245d5bd2d270.xcf",
+    "static/media/badge_captain.xcf": "/starship-command/static/media/badge_captain.8883af0b35c23340b1b8.xcf",
+    "static/media/badge_engineering.xcf": "/starship-command/static/media/badge_engineering.d47016f2ffe35ecc3437.xcf",
+    "static/media/badge_helm.xcf": "/starship-command/static/media/badge_helm.6de00c10a205f80d13bb.xcf",
+    "static/media/ship.xcf": "/starship-command/static/media/ship.4000f60c814d2e8e29c6.xcf",
+    "index.html": "/starship-command/index.html",
+    "main.e8650538.css.map": "/starship-command/static/css/main.e8650538.css.map",
+    "main.3be34074.js.map": "/starship-command/static/js/main.3be34074.js.map",
+    "787.9e485456.chunk.js.map": "/starship-command/static/js/787.9e485456.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e8650538.css",
+    "static/js/main.3be34074.js"
+  ]
+}
