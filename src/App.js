@@ -15,7 +15,7 @@ function App() {
 
 	return (
 		<div id="screenContainer" ref={ref}>
-			<div id="viewport" style={{transform: "scale(" + scaleFactor +")"}}>
+			<div id="viewport" style={{transform: "scale(" + scaleFactor +")"}} data-scale={scaleFactor}>
 				<StoreProvider>
 					<GameStateManager />
 				</StoreProvider>

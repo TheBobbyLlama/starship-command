@@ -89,33 +89,33 @@ const rasterizeLine = (imgData, width, height, x, y, slope, color) => {
 export const drawGrid = (imgData, width, height, origin, orientation, scale) => {
 	const cos = Math.cos(-orientation);
 	const sin = Math.sin(-orientation);
-	const refX = (width / 2) - scale * (cos * (origin[0] % 1000) + sin * (origin[1] % 1000)) / 10;
-	const refY = (height / 2) + scale * (cos * (origin[1] % 1000) - sin * (origin[0] % 1000)) / 10;
+	const refX = (width / 2) - scale * (cos * (origin[0] % 1000) + sin * (origin[1] % 1000));
+	const refY = (height / 2) + scale * (cos * (origin[1] % 1000) - sin * (origin[0] % 1000));
 
 	const slopeXlines = -cos / ((sin === 0) ? 0.00001 : sin);
 	const slopeYlines = sin / ((cos === 0) ? 0.00001 : cos);
 	const gridLimit = Math.ceil(Math.SQRT2 * Math.max(width, height) / scale / 200) * 2;
 
 	// Y-axis gridlines.
-	let gridX = refX - gridLimit * 50 * sin * scale;
-	let gridY = refY + gridLimit * 50 * cos * scale;
+	let gridX = refX - gridLimit * 500 * sin * scale;
+	let gridY = refY + gridLimit * 500 * cos * scale;
 
 	for (let i = 0; i < gridLimit; i++) {
 		rasterizeLine(imgData, width, height, gridX, gridY, slopeYlines, gridColor);
 
-		gridX += 100 * sin * scale;
-		gridY -= 100 * cos * scale;
+		gridX += 1000 * sin * scale;
+		gridY -= 1000 * cos * scale;
 	}
 
 	// X-axis gridlines.
-	gridX = refX - gridLimit * 50 * cos * scale;
-	gridY = refY - gridLimit * 50 * sin * scale;
+	gridX = refX - gridLimit * 500 * cos * scale;
+	gridY = refY - gridLimit * 500 * sin * scale;
 
 	for (let i = 0; i < gridLimit; i++) {
 		rasterizeLine(imgData, width, height, gridX, gridY, slopeXlines, gridColor);
 
-		gridX += 100 * cos * scale;
-		gridY += 100 * sin * scale;
+		gridX += 1000 * cos * scale;
+		gridY += 1000 * sin * scale;
 	}
 
 	//setPoint(imgData, width, height, Math.round(refX), Math.round(refY), [255, 0, 0, 255]); // TODO - This is for testing purposes!
@@ -128,7 +128,7 @@ export const drawMapMarker = (ctx, width, height, origin, orientation, scale, ma
 	ctx.translate(width / 2, height / 2);
 	ctx.scale(scale, scale);
 	ctx.rotate(orientation);
-	ctx.translate((origin[0] - position[0]) / 10 - size[0] / 4, (origin[1] - position[1]) / 10 - size[1]); // Why does size[0] need to be reduced???
+	ctx.translate((origin[0] - position[0]) - size[0] / 4, (origin[1] - position[1]) - size[1]); // Why does size[0] need to be reduced???
 	ctx.rotate(-heading);
 	ctx.drawImage(marker, 0, 0, size[1], size[0]);
 }

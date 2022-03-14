@@ -1,7 +1,17 @@
+// Vector math library.
 const Vector2D = {
 	// Calculates a unit vector to represent the radian input.
 	fromRadians(radians) {
 		return [ Math.sin(radians), Math.cos(radians)]
+	},
+
+	// Gets a vector rotated 90 degrees to the right of the input.  Takes radian or vector inputs.
+	getRightVector(input) {
+		if (input.length) {
+			return [ input[1], -input[0] ];
+		} else {
+			return this.fromRadians(input + Math.PI / 2);
+		}
 	},
 
 	// Calculates the difference between two radian values, normalized between +/- pi.
@@ -22,6 +32,11 @@ const Vector2D = {
 	// Adds two vectors together and returns the result.
 	add(a, b) {
 		return [ a[0] + b[0], a[1] + b[1] ];
+	},
+
+	// Subtracts vector b from vector a.
+	subtract(a, b) {
+		return [ a[0] - b[0], a[1] - b[1] ];
 	},
 
 	// Scales a vector by the given scalar.
