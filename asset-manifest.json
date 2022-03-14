@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/starship-command/static/css/main.e8650538.css",
-    "main.js": "/starship-command/static/js/main.3be34074.js",
+    "main.js": "/starship-command/static/js/main.f91bf933.js",
     "static/js/787.9e485456.chunk.js": "/starship-command/static/js/787.9e485456.chunk.js",
     "static/media/Stars.png": "/starship-command/static/media/Stars.579d15d5ba86a202e1cb.png",
     "static/media/pixelfj8pt1.normal.ttf": "/starship-command/static/media/pixelfj8pt1.normal.1d926fed08ae87902022.ttf",
@@ -16,11 +16,11 @@
     "static/media/ship.xcf": "/starship-command/static/media/ship.4000f60c814d2e8e29c6.xcf",
     "index.html": "/starship-command/index.html",
     "main.e8650538.css.map": "/starship-command/static/css/main.e8650538.css.map",
-    "main.3be34074.js.map": "/starship-command/static/js/main.3be34074.js.map",
+    "main.f91bf933.js.map": "/starship-command/static/js/main.f91bf933.js.map",
     "787.9e485456.chunk.js.map": "/starship-command/static/js/787.9e485456.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.e8650538.css",
-    "static/js/main.3be34074.js"
+    "static/js/main.f91bf933.js"
   ]
 }
